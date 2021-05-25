@@ -1,0 +1,37 @@
+api_platform:
+    title: 'Picasso Houessou API'
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+
+    formats:
+        jsonld:
+            mime_types:
+                - application/ld+json
+        jsonhal:
+            mime_types:
+                - application/hal+json
+        jsonapi:
+            mime_types:
+                - application/vnd.api+json
+        json:
+            mime_types:
+                - application/json
+
+        html:
+            mime_types:
+                - text/html
+
+        csv:
+            mime_types:
+                - text/csv
+        xml:
+            mime_types:
+                - application/xml
+                - text/xml
+        yaml:
+            mime_types:
+                - application/x-yaml
