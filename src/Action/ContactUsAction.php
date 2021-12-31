@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\ContactUs;
 
-class ContactUsController
+class ContactUsAction
 {
-    public function __construct()
+    protected $contactUs ;
+
+    public function __construct(ContactUs $contactUs)
     {
+        $this->contactUs = $contactUs;
 
     }
 

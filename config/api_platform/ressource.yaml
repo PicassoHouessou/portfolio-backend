@@ -1,6 +1,6 @@
-App\Entity\ContacUs:
-    itemOperations:
-        get: ~
-        post_publication:
-            route_name: contactus_post_publication
-        contacus_post_discontinuation: ~
+#App\Entity\ContacUs:
+#    itemOperations:
+#        get: ~
+#        post_publication:
+#            route_name: contactus_post_publication
+#        contacus_post_discontinuation: ~

@@ -1,0 +1,12 @@
+{% apply markdown_to_html %}
+Bonjour Picasso !
+===========================
+
+Vous avez un nouveau message depuis le site [{{ APP_URL }}]({{ APP_URL }})
+
+**De :** {{ contactUs.fullName }} <[{{ contactUs.email }}](mailto:{{ contactUs.email }})> <br>
+**Sujet :** {{ contactUs.subject }} <br>
+**Contenu :** <br>
+{{ contactUs.message }}
+
+{% endapply %}

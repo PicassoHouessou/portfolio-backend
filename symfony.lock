@@ -40,6 +40,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
+    "dflydev/dot-access-data": {
+        "version": "v3.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -134,11 +137,26 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "egulias/email-validator": {
+        "version": "2.1.25"
+    },
     "fig/link-util": {
         "version": "1.1.1"
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.5"
+    },
+    "google/recaptcha": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.1",
+            "ref": "e5a4aa21f2e98d7440ae9aab6b56e307f99dd084"
+        },
+        "files": [
+            "./config/packages/google_recaptcha.yaml"
+        ]
     },
     "ircmaxell/random-lib": {
         "version": "v1.2.0"
@@ -152,6 +170,18 @@
     "jms/metadata": {
         "version": "2.3.0"
     },
+    "karser/karser-recaptcha3-bundle": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.1",
+            "ref": "c51ce07c10331d506762efe25b6f5843c1a5ea17"
+        },
+        "files": [
+            "./config/packages/karser_recaptcha3.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -160,6 +190,12 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
+    },
+    "league/commonmark": {
+        "version": "2.1.0"
+    },
+    "league/config": {
+        "version": "v1.1.1"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -175,6 +211,12 @@
     },
     "nesbot/carbon": {
         "version": "2.46.0"
+    },
+    "nette/schema": {
+        "version": "v1.2.2"
+    },
+    "nette/utils": {
+        "version": "v3.2.6"
     },
     "nikic/php-parser": {
         "version": "v4.10.2"
@@ -214,6 +256,18 @@
     },
     "roave/signature": {
         "version": "1.3.0"
+    },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "9d254a22efca7264203eea98b866f16f944b2f09"
+        },
+        "files": [
+            "./public/.htaccess"
+        ]
     },
     "symfony/asset": {
         "version": "v5.1.7"
@@ -316,6 +370,18 @@
     "symfony/intl": {
         "version": "v5.1.8"
     },
+    "symfony/mailer": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "bbfc7e27257d3a3f12a6fb0a42540a42d9623a37"
+        },
+        "files": [
+            "./config/packages/mailer.yaml"
+        ]
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -354,6 +420,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
+    },
+    "symfony/profiler-pack": {
+        "version": "v1.0.6"
     },
     "symfony/property-access": {
         "version": "v5.1.7"
@@ -469,6 +538,20 @@
     "symfony/web-link": {
         "version": "v5.1.7"
     },
+    "symfony/web-profiler-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "6bdfa1a95f6b2e677ab985cd1af2eae35d62e0f6"
+        },
+        "files": [
+            "./config/packages/dev/web_profiler.yaml",
+            "./config/packages/test/web_profiler.yaml",
+            "./config/routes/dev/web_profiler.yaml"
+        ]
+    },
     "symfony/yaml": {
         "version": "v5.1.7"
     },
@@ -496,6 +579,12 @@
             "./config/packages/coop_tilleuls_forgot_password.yaml",
             "./config/routes/coop_tilleuls_forgot_password.yaml"
         ]
+    },
+    "twig/extra-bundle": {
+        "version": "v3.3.4"
+    },
+    "twig/markdown-extra": {
+        "version": "v3.3.4"
     },
     "twig/twig": {
         "version": "v3.0.5"

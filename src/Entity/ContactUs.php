@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ContactUsRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
@@ -10,11 +11,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
-use Gedmo\Mapping\Annotation as Gedmo ;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ApiResource(
  *     collectionOperations={
- *          "post"={},
+ *          "post"={
+ *
+ *
+ * },
  *          "get"={}
  *     },
  *     itemOperations={
@@ -26,13 +32,13 @@ use Gedmo\Mapping\Annotation as Gedmo ;
  *      normalizationContext={"groups"={"contact_us:read"}},
  *      denormalizationContext={"groups"={"contact_us:write"}},
  *
- *     shortName="contactus",
+ *     shortName="contact_us",
  *      attributes={
  *              "pagination_items_per_page" = 10
  * }
  * )
  * @ApiFilter(SearchFilter::class, properties={"subject" : "partial", "fullName": "partial" })
- * 
+ *
  * @ORM\Entity(repositoryClass=ContactUsRepository::class)
  */
 class ContactUs
@@ -47,9 +53,9 @@ class ContactUs
     /**
      * @ORM\Column(type="string", length=200)
      * @Groups({"contact_us:read", "contact_us:write"})
-     *  @Assert\NotBlank()
+     * @Assert\NotBlank()
      * @Assert\Length(
-     *      max=200     
+     *      max=200
      * )
      */
     private $fullName;
@@ -57,8 +63,8 @@ class ContactUs
     /**
      * @ORM\Column(type="string", length=200)
      * @Groups({"contact_us:read", "contact_us:write"})
-     *  @Assert\NotBlank()
-     *  @Assert\Email()
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -66,6 +72,9 @@ class ContactUs
      * @ORM\Column(type="string", length=200)
      * @Groups({"contact_us:read", "contact_us:write"})
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max=200
+     * )
      */
     private $subject;
 
@@ -73,6 +82,10 @@ class ContactUs
      * @ORM\Column(type="text")
      * @Groups({"contact_us:read", "contact_us:write"})
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=20,
+     *      max=5000
+     * )
      */
     private $message;
 
@@ -83,10 +96,26 @@ class ContactUs
      */
     private $createdAt;
 
+
+    /**
+     * @Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3
+     * @Groups({"contact_us:write"})
+     * @Assert\NotBlank()
+     */
+    public $recaptcha;
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    /*
+
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime();
+    }
+    */
 
     public function getFullName(): ?string
     {
@@ -140,12 +169,18 @@ class ContactUs
     {
         return $this->createdAt;
     }
-/*
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
-        return $this;
+    public function getCreatedAtAgo($var = null): string
+    {
+        return Carbon::instance($this->getCreatedAt())->diffForHumans();
     }
-    */
+    /*
+        public function setCreatedAt(\DateTimeInterface $createdAt): self
+        {
+            $this->createdAt = $createdAt;
+
+            return $this;
+        }
+        */
+
 }
