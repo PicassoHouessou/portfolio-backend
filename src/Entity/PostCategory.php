@@ -11,53 +11,47 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource()
- * @ORM\Entity(repositoryClass=PostCategoryRepository::class)
- */
+
+#[ApiResource()]
+#[ORM\Entity(repositoryClass: PostCategoryRepository::class)]
+
 class PostCategory
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=200)
-     * @Groups({"contact_us:read", "contact_us:write"})
-     *  @Assert\NotBlank()
-     *  @Assert\Length (max="200")
-     */
+
+    #[ORM\Column(type: "string", length: 200)]
+    #[Groups(["contact_us:read", "contact_us:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: "200")]
     private $name;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     *  @Assert\Length (max="5000")
-     */
+
+    #[ORM\Column(type: "text", nullable: true)]
+    #[Assert\Length(max: "5000")]
     private $description;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
-     * )
-     */
+
+    #[Gedmo\Timestampable(on: "create")]
+    #[ORM\Column(type: "datetime")]
+    #[Assert\NotBlank()]
+    #[Assert\DateTime()]
+
     private $createdAt;
 
-    /**
-     *  @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     *  * @Assert\NotBlank()
-     * @Assert\DateTime()
-     */
+
+    #[Gedmo\Timestampable(on: "update")]
+    #[ORM\Column(type: "datetime", nullable: true)]
+    #[Assert\NotBlank()]
+    #[Assert\DateTime()]
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="categories")
-     */
+
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: "categories")]
     private $posts;
 
     public function __construct()
@@ -105,7 +99,7 @@ class PostCategory
 
         return $this;
     }
-    */
+     */
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
@@ -120,9 +114,7 @@ class PostCategory
     }
     */
 
-    /**
-     * @return Collection|Post[]
-     */
+
     public function getPosts(): Collection
     {
         return $this->posts;

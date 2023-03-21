@@ -15,69 +15,65 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-/**
- * @ApiResource(
- *      normalizationContext={"groups"={"user:read"}},
- *      denormalizationContext={"groups"={"user:write"}},
- *      attributes={
- *              "pagination_items_per_page" = 10
- * })
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"})
- * @UniqueEntity(fields={"username"})
- */
+
+#[ApiResource(
+    normalizationContext: ["groups" => ["user:read"]],
+    denormalizationContext: ["groups" => ["user:write"]],
+    attributes: [
+        "pagination_items_per_page" => 10
+    ]
+)]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ["email"])]
+#[UniqueEntity(fields: ["username"])]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user:read", "user:write"})
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
+
+    #[ORM\Column(type: "string", length: 180, unique: true)]
+    #[Groups(["user:read", "user:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Email()]
+
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+
+    #[ORM\Column(type: "json")]
+
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     * @Groups({"user:write"})
-     */
+    #[ORM\Column(type: "string")]
+    #[Groups(["user:write"])]
+
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"user:read", "user:write"})
-     * @Assert\NotBlank()
-     *  @Groups({"user:read","user:write"})
-     */
+
+    #[ORM\Column(type: "string", length: 255, unique: true)]
+    #[Assert\NotBlank()]
+    #[Groups(["user:read", "user:write"])]
+
     private $username;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
+     #[ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
      */
     private $posts;
 
-    /**
-     *  @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
+    #[Gedmo\Timestampable(on: "create")]
+    #[ORM\Column(type: "datetime")]
+
     private $createdAt;
 
-    /**
-     *  @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[Gedmo\Timestampable(on: "update")]
+    #[ORM\Column(type: "datetime", nullable: true)]
+
     private $updatedAt;
 
     public function __construct()
@@ -105,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * A visual identifier that represents this user.
      *
-     * @see UserInterface
+     [see UserInterface
      */
     public function getUsername(): string
     {
@@ -115,7 +111,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * The public representation of the user (e.g. a username, an email address, etc.)
      *
-     * @see UserInterface
+     [see UserInterface
      */
     public function getUserIdentifier(): string
     {
@@ -123,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     [see UserInterface
      */
     public function getRoles(): array
     {
@@ -142,7 +138,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     [see UserInterface
      */
     public function getPassword(): string
     {
@@ -157,7 +153,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     [see UserInterface
      */
     public function getSalt()
     {
@@ -165,7 +161,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     [see UserInterface
      */
     public function eraseCredentials()
     {
@@ -181,7 +177,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Post[]
+     [return Collection|Post[]
      */
     public function getPosts(): Collection
     {

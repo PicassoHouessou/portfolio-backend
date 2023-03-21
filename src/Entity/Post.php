@@ -8,89 +8,74 @@ use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo ;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *    normalizationContext={"groups"={"post:read"}},
- *      denormalizationContext={"groups"={"post:write"}},
- * )
- * @ORM\Entity(repositoryClass=PostRepository::class)
- */
+
+#[ApiResource(
+    normalizationContext: ["groups" => ["post:read"]],
+    denormalizationContext: ["groups" => ["post:write"]],
+)]
+#[ORM\Entity(repositoryClass: PostRepository::class)]
+
 class Post
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=200)
-     * @Groups({"post:read", "post:write"})
-     *  @Assert\NotBlank()
-     *  @Assert\Length (min="10", max="200")
-     */
+    #[ORM\Column(type: "string", length: 200)]
+    #[Groups(["post:read", "post:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: "10", max: "200")]
+
     private $title;
 
-    /**
-     * @Gedmo\Slug (fields={"title"})
-     * @ORM\Column(type="string", length=230)
-     */
+    #[Gedmo\Slug(fields: ["title"])]
+    #[ORM\Column(type: "string", length: 230)]
+
     private $slug;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     *  @Assert\DateTime()
-     *
-     */
+    #[Gedmo\Timestampable(on: "create")]
+    #[ORM\Column(type: "datetime")]
+    #[Assert\DateTime()]
     private $createdAt;
 
-    /**
-     * @Gedmo\Timestampable()
-     * @ORM\Column(type="datetime", nullable=true)
-     *  @Assert\DateTime()
-     */
+    #[Gedmo\Timestampable()]
+    #[ORM\Column(type: "datetime", nullable: true)]
+    #[Assert\DateTime()]
     private $updatedAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: "post", orphanRemoval: true)]
+
     private $comments;
 
-    /**
-     * @ORM\Column(type="text")
-     * * @Groups({"post:read", "post:write"})
-     *  @Assert\NotBlank()
-     *  @Assert\Length (max="20000")
-     */
+    #[ORM\Column(type: "text")]
+    #[Groups(["post:read", "post:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: "20000")]
+
     private $content;
 
-    /**
-     * @ORM\Column(type="boolean")
-     * * @Groups({"post:read", "post:write"})
-     *  @Assert\NotBlank()
-     */
+    #[ORM\Column(type: "boolean")]
+    #[Groups(["post:read", "post:write"])]
+    #[Assert\NotBlank()]
     private $isActivated = false;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=PostCategory::class, inversedBy="posts")
-     */
+    #[ORM\ManyToMany(targetEntity: PostCategory::class, inversedBy: "posts")]
+
     private $categories;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="posts")
-     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: "posts")]
+
     private $tags;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "posts")]
+    #[ORM\JoinColumn(nullable: false)]
+
     private $author;
 
     public function __construct()
@@ -134,11 +119,12 @@ class Post
         return $this->createdAt;
     }
 
-    public function getCreatedAtAgo(){
+    public function getCreatedAtAgo()
+    {
 
-        return Carbon::instance($this->getCreatedAt())->diffForHumans()  ;
+        return Carbon::instance($this->getCreatedAt())->diffForHumans();
     }
-/*
+    /*
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -151,7 +137,7 @@ class Post
     {
         return $this->updatedAt;
     }
-/*
+    /*
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
@@ -159,9 +145,7 @@ class Post
         return $this;
     }
 */
-    /**
-     * @return Collection|Comment[]
-     */
+
     public function getComments(): Collection
     {
         return $this->comments;
@@ -214,9 +198,7 @@ class Post
         return $this;
     }
 
-    /**
-     * @return Collection|PostCategory[]
-     */
+
     public function getCategories(): Collection
     {
         return $this->categories;
@@ -240,9 +222,7 @@ class Post
         return $this;
     }
 
-    /**
-     * @return Collection|Tag[]
-     */
+
     public function getTags(): Collection
     {
         return $this->tags;

@@ -9,49 +9,40 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
-/**
- * @ApiResource()
- * @ORM\Entity(repositoryClass=TagRepository::class)
- */
+
+
+#[ApiResource()]
+#[ORM\Entity(repositoryClass: TagRepository::class)]
+
 class Tag
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=200)
-     *  @Assert\NotBlank()
-     *  @Assert\Length (max="200")
-     */
+    #[ORM\Column(type: "string", length: 200)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: "200")]
     private $name;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     *  @Assert\Length (max="5000")
-     */
+    #[ORM\Column(type: "text", nullable: true)]
+    #[Assert\Length(max: "5000")]
     private $description;
 
-    /**
-     * @ORM\Column(type="datetime")
-     *  * @Assert\NotBlank()
-     * @Assert\Datetime()
-     */
+    #[ORM\Column(type: "datetime")]
+    #[Assert\NotBlank()]
+    #[Assert\Datetime()]
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *  * @Assert\NotBlank()
-     * @Assert\Datetime()
-     */
+    #[ORM\Column(type: "datetime", nullable: true)]
+    #[Assert\NotBlank()]
+    #[Assert\Datetime()]
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="tags")
-     */
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: "tags")]
     private $posts;
 
     public function __construct()
@@ -112,9 +103,6 @@ class Tag
         return $this;
     }
 
-    /**
-     * @return Collection|Post[]
-     */
     public function getPosts(): Collection
     {
         return $this->posts;
