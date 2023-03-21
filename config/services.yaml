@@ -5,18 +5,18 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     myEmail: "picasso@picassohouessou.com"
-    no-reply_email: 'noreply@picassohouessou.com'
-    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
-
+    no-reply_email: "noreply@picassohouessou.com"
+    google_recaptcha_site_key: "%env(GOOGLE_RECAPTCHA_SITE_KEY)%"
+    locale: "fr"
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $noReplyEmail: '%no-reply_email%'
+            $noReplyEmail: "%no-reply_email%"
             $projectDirectory: "%kernel.project_dir%"
-            $myEmail: '%myEmail%'
+            $myEmail: "%myEmail%"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -38,7 +38,68 @@ services:
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
         resource: "../src/Controller/"
-        tags: [ "controller.service_arguments" ]
+        tags: ["controller.service_arguments"]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # Doctrine Extension listeners to handle behaviors
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    Gedmo\Translatable\TranslatableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+            - [setDefaultLocale, ["%locale%"]]
+            - [setTranslationFallback, [false]]
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    Gedmo\Loggable\LoggableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    Gedmo\Blameable\BlameableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]
+
+    Gedmo\IpTraceable\IpTraceableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ["@annotation_reader"]]

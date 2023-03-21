@@ -12,7 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-use Gedmo\Mapping\Annotation as Gedmo ;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"user:read"}},
@@ -24,7 +26,7 @@ use Gedmo\Mapping\Annotation as Gedmo ;
  * @UniqueEntity(fields={"email"})
  * @UniqueEntity(fields={"username"})
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -108,6 +110,16 @@ class User implements UserInterface
     public function getUsername(): string
     {
         return (string) $this->username;
+    }
+
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
     }
 
     /**
@@ -203,7 +215,7 @@ class User implements UserInterface
     {
         return $this->createdAt;
     }
-/*
+    /*
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -216,7 +228,7 @@ class User implements UserInterface
     {
         return $this->updatedAt;
     }
-/*
+    /*
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;

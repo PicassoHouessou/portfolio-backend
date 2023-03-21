@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=PostCategoryRepository::class)
@@ -38,7 +39,7 @@ class PostCategory
     private $description;
 
     /**
-     *  @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
      * @Assert\DateTime()
@@ -97,7 +98,7 @@ class PostCategory
     {
         return $this->createdAt;
     }
-/*
+    /*
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -110,7 +111,7 @@ class PostCategory
     {
         return $this->updatedAt;
     }
-/*
+    /*
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
