@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     myEmail: "picasso@picassohouessou.com"
+    no-reply_email: 'noreply@picassohouessou.com'
     google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
 
 services:
@@ -13,6 +14,7 @@ services:
         autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
+            $noReplyEmail: '%no-reply_email%'
             $projectDirectory: "%kernel.project_dir%"
             $myEmail: '%myEmail%'
 

@@ -15,13 +15,15 @@ final class ContactUsPostDataPersister implements ContextAwareDataPersisterInter
     private $decorated;
     private $mailer;
     private $myEmail;
+    private $noReplyEmail;
 
 
-    public function __construct(ContextAwareDataPersisterInterface $decorated, MailerInterface $mailer, $myEmail)
+    public function __construct(ContextAwareDataPersisterInterface $decorated, MailerInterface $mailer, $myEmail, $noReplyEmail)
     {
         $this->decorated = $decorated;
         $this->mailer = $mailer;
         $this->myEmail = $myEmail;
+        $this->noReplyEmail = $noReplyEmail ;
     }
 
     public function supports($data, array $context = []): bool
@@ -58,7 +60,7 @@ final class ContactUsPostDataPersister implements ContextAwareDataPersisterInter
     public function sendWelcomeEmail(ContactUs $contactUs)
     {
         $email = (new TemplatedEmail())
-            ->from($contactUs->getEmail())
+            ->from($this->noReplyEmail)
             ->to($this->myEmail)
             ->subject($contactUs->getSubject())
             ->htmlTemplate('email/contact_us.md.twig')

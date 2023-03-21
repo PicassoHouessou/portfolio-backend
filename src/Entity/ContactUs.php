@@ -97,12 +97,13 @@ class ContactUs
     private $createdAt;
 
 
-    /**
-     * @Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3
-     * @Groups({"contact_us:write"})
-     * @Assert\NotBlank()
-     */
+    /*
+     * Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3
+     * Groups({"contact_us:write"})
+     * Assert\NotBlank()
+     *
     public $recaptcha;
+    */
 
     public function getId(): ?int
     {

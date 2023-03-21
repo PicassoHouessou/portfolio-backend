@@ -1,5 +1,6 @@
 
 #Pour la redirection HTTP en HTTPS<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
