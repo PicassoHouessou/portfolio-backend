@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;;
+
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,9 +20,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ApiResource(
     normalizationContext: ["groups" => ["user:read"]],
     denormalizationContext: ["groups" => ["user:write"]],
-    attributes: [
-        "pagination_items_per_page" => 10
-    ]
 )]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ["email"])]

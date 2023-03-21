@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;;
+
 use App\Repository\PostRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;

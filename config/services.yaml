@@ -27,12 +27,11 @@ services:
             - "../src/Entity/"
             - "../src/Kernel.php"
             - "../src/Tests/"
-    # ...
-    App\DataPersister\ContactUsPostDataPersister:
-        decorates: "api_platform.doctrine.orm.data_persister"
+    # ..
+    App\State\ContactUsPostProcessor:
+        ~
         # Uncomment only if autoconfiguration is disabled
-        #arguments: ['@App\DataPersister\ContactUsPostDataPersister.inner']
-        #tags: ["api_platform.data_persister"]
+        #tags: [ 'api_platform.state_processor' ]
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

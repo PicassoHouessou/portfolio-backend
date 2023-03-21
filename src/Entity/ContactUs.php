@@ -5,22 +5,32 @@ namespace App\Entity;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ContactUsRepository;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
+use  ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;;
+
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-
-
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use App\DataPersister\ContactUsPostProcessor;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
 #[ApiResource(
     normalizationContext: ["groups" => ["contact_us:read"]],
     denormalizationContext: ["groups" => ["contact_us:write"]],
-    attributes: [
-        "pagination_items_per_page" => 10
+    operations: [
+        new Get(),
+        new Put(),
+        new Delete(),
+        new GetCollection(),
+        new Post(processor: ContactUsPostProcessor::class),
     ]
+
 )]
 #[ApiFilter(SearchFilter::class, properties: ["subject", "partial", "fullName", "partial"])]
 

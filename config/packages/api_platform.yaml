@@ -1,9 +1,9 @@
 api_platform:
-    title: 'Picasso Houessou API'
+    title: "Picasso Houessou API"
     mapping:
-        paths: ['%kernel.project_dir%/src/Entity']
+        paths: ["%kernel.project_dir%/src/Entity"]
     patch_formats:
-        json: ['application/merge-patch+json']
+        json: ["application/merge-patch+json"]
     swagger:
         versions: [3]
 
