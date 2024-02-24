@@ -1,0 +1,9 @@
+App\Entity\UserLanguage:
+  user_language_fr:
+    proficiency: "Native"
+    language: '@language_fr'
+    user: '@user_picasso'
+  user_language_en:
+    proficiency: "Native"
+    language: '@language_en'
+    user: '@user_picasso'

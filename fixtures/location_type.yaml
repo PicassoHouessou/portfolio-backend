@@ -1,0 +1,8 @@
+App\Entity\LocationType:
+  location_type_on_site:
+    name: "On-Site"
+  location_type_hybrid:
+    name: "Hybrid"
+  location_type_remote:
+    name: "remote"
+  

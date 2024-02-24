@@ -1,0 +1,24 @@
+App\Entity\Education:
+  education_1:
+    degree: "Bachelor's degree in Computer Science - option Computer Network Administration"
+    school: "National School of Applied Economics and Management (ENEAM)"
+    start_at: <dateTime('2018-06-01')>
+    end_at: <dateTime('2019-07-31')>
+    description: ""
+    location: "Cotonou, Benin"
+    user: '@user_picasso'
+  education_2:
+    degree: "BACCALAUREATE French-speaking Africa (College diploma equivalent)"
+    school: "College of General Education of Albarika"
+    start_at: <dateTime('2018-10-01')>
+    end_at: <dateTime('2019-01-31')>
+    location: "Parakou, Benin"
+    user: '@user_picasso'
+  education_3:
+    degree: "Computer Engineering"
+    school: "Université du Littoral de la Côte Opale in Calais."
+    start_at: <dateTime('2023-08-03')>
+    end_at: <dateTime('2025-11-31')>
+    description: ""
+    location: "62100 Coulogne, France"
+    user: '@user_picasso'

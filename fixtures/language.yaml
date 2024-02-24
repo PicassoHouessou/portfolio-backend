@@ -1,0 +1,8 @@
+App\Entity\Locale:
+  language_en:
+    code: "en"
+    description: "English"
+    is_default: true
+  language_fr:
+    code: "fr"
+    description: "Français"

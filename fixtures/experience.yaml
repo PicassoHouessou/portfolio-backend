@@ -1,0 +1,62 @@
+App\Entity\Experience:
+  experience_1:
+    title: "Former"
+    company: "JEUNESSE INSTITUT"
+    start_at: <dateTime('2020-06-01')>
+    end_at: <dateTime('2020-10-31')>
+    description: "Provide general computer and office automation courses. Teach web development with WordPress"
+    location: "Cotonou, Benin"
+    location_type: '@location_type_on_site'
+    user: '@user_picasso'
+  experience_2:
+    title: "Internship"
+    company: "HG TECH"
+    start_at: <dateTime('2018-10-01')>
+    end_at: <dateTime('2019-01-31')>
+    description: "Maintenance and technical assistance. Administration under Windows Server. Website development"
+    location: "Cotonou, Benin"
+    location_type: '@location_type_on_site'
+    user: '@user_picasso'
+  experience_3:
+    title: "Internship"
+    company: "JSCOM"
+    start_at: <dateTime('2019-11-01')>
+    end_at: <dateTime('2020-03-31')>
+    description: "Deployment of Pozépa (mail management application) and training workshop on its use. Drafting of final thesis for bachelor's degree completion"
+    location: "Cotonou, Benin"
+    location_type: '@location_type_on_site'
+    user: '@user_picasso'
+  experience_4:
+    title: "Title"
+    company: "CLUB INFORMATIQUE POUR TOUS"
+    start_at: <dateTime('2020-06-01')>
+    end_at: <dateTime('2020-10-31')>
+    description: "Teach general computing, office automation (Word, Excel, PowerPoint) and web design"
+    location_type: '@location_type_on_site'
+    user: '@user_picasso'
+  experience_5:
+    title: "Web Developer"
+    company: "WIMTEC"
+    start_at: <dateTime('2020-12-01')>
+    end_at: <dateTime('2021-12-31')>
+    description: "Redesign of more than 300 websites. Create e-learning platforms (social networks, WordPress). Organize and distribute tasks"
+    location: "Cotonou, Benin"
+    location_type: '@location_type_on_site'
+    user: '@user_picasso'
+  experience_6:
+    title: "Full Stack Web Developer"
+    company: "Kritek"
+    start_at: <dateTime('2022-04-01')>
+    description: "Develop modules (packages) used in several projects. Development of a cab review application with React, Symfony and API Platform. Creation of a CMS with React, Symfony and API Platform. Supervise the tasks assigned to each developer"
+    location: "Cotonou, Benin"
+    location_type: '@location_type_remote'
+    user: '@user_picasso'
+  experience_7:
+    title: "Full Stack Web Developer"
+    company: "Kritek"
+    start_at: <dateTime('2023-04-01')>
+    end_at: <dateTime('2023-07-30')>
+    description: "Concrete Dispatch: Integration of new features for the optimization of concrete and material management across all construction sites. Staff Dispatch: Development and addition of modules for advanced personnel management on construction sites"
+    location: "Cotonou, Benin"
+    location_type: '@location_type_remote'
+    user: '@user_picasso'

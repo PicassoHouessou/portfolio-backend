@@ -30,18 +30,20 @@ class ProjectFixtures extends Fixture  implements FixtureGroupInterface
     }
 
     public function load(ObjectManager $manager)
-    {
+    {/*
         $projectDir = $this->parameterBag->get("kernel.project_dir");
         $portfolios = Items::fromFile(Path::normalize($projectDir . "/src/DataFixtures/portfolio.json"));
         foreach ($portfolios as $item) {
 
             $file = new UploadedFile(Path::normalize($projectDir . '/src/DataFixtures/images/portfolio/' . $item->image), $item->image);
+            dump($file);
             $media = $this->createMedia($file);
             $manager->persist($media);
             $manager->flush();
             $project = $this->createProject($item->title, $item->subtitle, $item->url, image: $media, active: $item->active);
             $manager->persist($project);
         }
+        */
 
         $manager->flush();
     }

@@ -10,10 +10,11 @@
         "cocur/slugify": "^4.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.0",
+        "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
-        "gedmo/doctrine-extensions": "*",
+        "gedmo/doctrine-extensions": "^3.15",
         "halaxa/json-machine": "^1.1",
         "karser/karser-recaptcha3-bundle": "^0.1.21",
         "league/commonmark": "^2.1",
@@ -45,7 +46,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "hautelook/alice-bundle": "^2.11",
+        "hautelook/alice-bundle": "^2.13",
         "symfony/maker-bundle": "^1.21",
         "symfony/stopwatch": "^6.4",
         "symfony/web-profiler-bundle": "^6.4"

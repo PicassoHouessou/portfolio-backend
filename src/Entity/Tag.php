@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ORM\HasLifecycleCallbacks]
 
 #[ApiResource()]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
@@ -102,6 +103,16 @@ class Tag
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updatedTimestamps(): void
+    {
+        $this->updatedAt = new \DateTime('now');
+        if ($this->getCreatedAt() === null) {
+            $this->createdAt = new \DateTime('now');
+        }
     }
 
     public function getPosts(): Collection

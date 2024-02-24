@@ -7,7 +7,11 @@ parameters:
     myEmail: "picasso@picassohouessou.com"
     no-reply_email: "noreply@picassohouessou.com"
     google_recaptcha_site_key: "%env(GOOGLE_RECAPTCHA_SITE_KEY)%"
-    locale: "fr"
+    yahoo_email: "%env(YAHOO_EMAIL)%"
+    locale: 'en'
+    app_locales:
+        - en
+        - fr
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -17,6 +21,8 @@ services:
             $noReplyEmail: "%no-reply_email%"
             $projectDirectory: "%kernel.project_dir%"
             $myEmail: "%myEmail%"
+            $locales: '%app_locales%'
+            $defaultLocale: '%locale%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

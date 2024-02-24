@@ -6,32 +6,15 @@ api_platform:
         json: ["application/merge-patch+json"]
     swagger:
         versions: [3]
+    docs_formats:
+        jsonld: [ 'application/ld+json' ]
+        html: [ 'text/html' ]
+        jsonopenapi: [ 'application/vnd.openapi+json' ]
 
     formats:
-        jsonld:
-            mime_types:
-                - application/ld+json
-        jsonhal:
-            mime_types:
-                - application/hal+json
-        jsonapi:
-            mime_types:
-                - application/vnd.api+json
         json:
             mime_types:
                 - application/json
-
-        html:
+        jsonld:
             mime_types:
-                - text/html
-
-        csv:
-            mime_types:
-                - text/csv
-        xml:
-            mime_types:
-                - application/xml
-                - text/xml
-        yaml:
-            mime_types:
-                - application/x-yaml
+                - application/ld+json
