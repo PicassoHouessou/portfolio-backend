@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ContactUsRepository;
 use  ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;;
-
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
@@ -16,7 +15,7 @@ use ApiPlatform\Metadata\Post;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use App\DataPersister\ContactUsPostProcessor;
+use App\State\ContactUsPostProcessor;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
@@ -28,20 +27,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
         new Put(),
         new Delete(),
         new GetCollection(),
-        new Post(processor: ContactUsPostProcessor::class),
+        new Post( processor: ContactUsPostProcessor::class),
     ]
 
 )]
 #[ApiFilter(SearchFilter::class, properties: ["subject", "partial", "fullName", "partial"])]
-
 #[ORM\Entity(repositoryClass: ContactUsRepository::class)]
-
 class ContactUs
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-
     private $id;
 
     #[ORM\Column(type: "string", length: 200)]

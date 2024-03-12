@@ -1,0 +1,128 @@
+App\Entity\MediaObject:
+    media_alexas:
+        file: <media(alexas-systemes.jpg)>
+
+App\Entity\Post:
+    project_1:
+        external_url: "https://alexassystemes.wimtec.solutions"
+        image: "@media_alexas"
+        title: "Alexas Système"
+        categories: [ '@project_category_building' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_2:
+        external_url: "https://tableaupeinturesaratamjidi.wimtec.solutions/"
+        #image: "art-lover-for-ever.jpg"
+        title: "Art Lover"
+        categories: [ '@project_category_artist' ]
+        is_enabled: false
+        type: "@post_project"
+        author: "@user_picasso"
+    project_3:
+        external_url: "https://annefornet-immobilier.wimtec.fun/"
+        #image: "anne-marie-fornet.jpg"
+        title: "Anne Marie Fornet"
+        categories: [ '@project_category_real_estate' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_4:
+        external_url: "https://assises-et-toiles-dejouy.wimtec.fun/"
+        #image: "assises-toiles-dejouy.jpg"
+        title: "Assises & Toile Dejouy"
+        categories: [ '@project_category_artist' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_5:
+        external_url: "https://autoecoleladestrousse.wimtec.solutions"
+        #image: "auto-ecole-la-destrousse-conduite.jpg"
+        title: "Destrouss' Conduite"
+        categories: [ '@project_category_driving_school' ]
+        is_enabled: true
+        author: "@user_picasso"
+    project_6:
+        external_url: "https://autosprestige91.wimtec.solutions/"
+        #image: "autos-prestige-91.jpg"
+        title: "Auto Prestige"
+        categories: [ '@project_category_auto' ]
+        is_enabled: true
+        author: "@user_picasso"
+    project_7:
+        external_url: "https://boldnect.com"
+        #image: "boldnect.jpg"
+        title: "Boldnect"
+        categories: [ '@project_category_investment' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_8:
+        external_url: "https://cshcoworking.wimtec.solutions/"
+        #image: "csh-coworking.jpg"
+        title: "CSH Coworking"
+        categories: [ '@project_category_coworking' ]
+        type: "@post_project"
+        author: "@user_picasso"
+    project_9:
+        external_url: "https://ecoledelarespiration.wimtec.fun/"
+        #image: "ecole-de-la-respiration.jpg"
+        title: "Ecole de la respiration"
+        categories: [ '@project_category_school' ]
+        type: "@post_project"
+        author: "@user_picasso"
+    project_10:
+        external_url: "https://jardineriechampsfleurs.wimtec.solutions/"
+        #image: "la-jardinerie-champs-fleurs.jpg"
+        title: "La jardinerie champs fleurs"
+        categories: [ '@project_category_garden' ]
+        type: "@post_project"
+        author: "@user_picasso"
+    project_11:
+        external_url: "https://patinesetjupons.wimtec.solutions/"
+        #image: "patines-jupons.jpg"
+        title: "Patines & jupons"
+        categories: [ '@project_category_decoration' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_12:
+        external_url: "https://pscformation.wimtec.solutions/"
+        #image: "psc-formation.jpg"
+        title: "PSC Formation"
+        categories: [ '@project_category_training' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_13:
+        external_url: "https://stephiepianopiano.wimtec.fun/"
+        #image: "stephie-piano-piano.jpg"
+        title: "Stephie Piano Piano"
+        categories: [ '@project_category_music' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_14:
+        external_url: "https://sylvielitaudon.wimtec.fun/"
+        #image: "sylvielitaudon.jpg"
+        title: "Sylvie Litaudon"
+        categories: [ '@project_category_dance_school' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_15:
+        external_url: "https://tourisme-arc.wimtec.solutions/"
+        #image: "tourisme-arc.jpg"
+        title: "Tourisme Arc"
+        categories: [ '@project_category_tourism' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_16:
+        external_url: "https://vignobledelaroseraie.wimtec.solutions/"
+        #image: "vignoble-de-la-roseraie.jpg"
+        title: "Vignoble de la roseraie"
+        categories: [ '@project_category_vineyard' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"

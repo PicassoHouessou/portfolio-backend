@@ -35,76 +35,82 @@ services:
             - "../src/Tests/"
     # ..
     App\State\ContactUsPostProcessor:
-        ~
-        # Uncomment only if autoconfiguration is disabled
-        #tags: [ 'api_platform.state_processor' ]
+        arguments:
+            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+            $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
+            $mailer: '@mailer'
+        tags: [ 'api_platform.state_processor' ]
+
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
         resource: "../src/Controller/"
-        tags: ["controller.service_arguments"]
+        tags: [ "controller.service_arguments" ]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\DataFixtures\Processor\UserProcessor: ~
+    App\DataFixtures\Provider\MediaProvider:
+        tags: [ { name: nelmio_alice.faker.provider } ]
+
     # Doctrine Extension listeners to handle behaviors
     gedmo.listener.tree:
         class: Gedmo\Tree\TreeListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     Gedmo\Translatable\TranslatableListener:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
-            - [setDefaultLocale, ["%locale%"]]
-            - [setTranslationFallback, [false]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+            - [ setDefaultLocale, [ "%locale%" ] ]
+            - [ setTranslationFallback, [ false ] ]
 
     gedmo.listener.timestampable:
         class: Gedmo\Timestampable\TimestampableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     gedmo.listener.sluggable:
         class: Gedmo\Sluggable\SluggableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     gedmo.listener.sortable:
         class: Gedmo\Sortable\SortableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     gedmo.listener.softdeleteable:
         class: Gedmo\SoftDeleteable\SoftDeleteableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     Gedmo\Loggable\LoggableListener:
         tags:
-            - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     Gedmo\Blameable\BlameableListener:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     Gedmo\IpTraceable\IpTraceableListener:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [setAnnotationReader, ["@annotation_reader"]]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]

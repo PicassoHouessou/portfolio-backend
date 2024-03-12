@@ -1,0 +1,34 @@
+App\Entity\Category:
+    project_category_decoration:
+        name: "Decoration"
+    project_category_wine:
+        name: "wine"
+    project_category_training:
+        name: "Training"
+    project_category_building:
+        name: "Building"
+    project_category_real_estate:
+        name: "Real estate"
+    project_category_auto:
+        name: "Auto"
+    project_category_garden:
+        name: "Garden"
+    project_category_coworking:
+        name: "Coworking"
+    project_category_music:
+        name: "Music"
+    project_category_tourism:
+        name: "Tourism"
+    project_category_vineyard:
+        name: "Vineyard"
+    project_category_school:
+        name: "School"
+    project_category_dance_school:
+        name: "Dance school"
+    project_category_driving_school:
+        name: "Driving school"
+    project_category_artist:
+        name: "Artist"
+    project_category_investment:
+        name: "Investment"
+

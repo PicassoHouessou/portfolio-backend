@@ -2,35 +2,33 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
-
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Repository\UserRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Post;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-
-
 
 #[ApiResource(
-    operations:[
-        new Get(),new GetCollection(),
-        new Post(),new Put(),
+    operations: [
+        new Get(), new GetCollection(),
+        new Post(), new Put(),
     ],
 
     normalizationContext: ["groups" => ["user:read"]],
@@ -43,14 +41,12 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'email', 'username', 'firstName', 'lastName', 'roles', 'createdAt', 'updatedAt'])]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial', 'username' => 'partial', 'roles' => 'partial'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
-
 class User implements UserInterface, PasswordAuthenticatedUserInterface, Translatable
 {
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-
     private $id;
 
 
@@ -58,91 +54,75 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     #[Groups(["user:read", "user:write"])]
     #[Assert\NotBlank()]
     #[Assert\Email()]
-
     private $email;
 
 
     #[ORM\Column(type: "json")]
-
     private $roles = [];
 
     #[ORM\Column(type: "string")]
     #[Groups(["user:write"])]
-
     private $password;
 
 
     #[ORM\Column(type: "string", length: 255, unique: true)]
     #[Assert\NotBlank()]
     #[Groups(["user:read", "user:write"])]
-
     private $username;
 
     /**
-     #[ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
+     * #[ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
      */
     private $posts;
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
     #[Groups(["user:read", "user:write"])]
-
     private ?\DateTimeInterface $createdAt;
 
     #[Gedmo\Timestampable(on: "update")]
     #[ORM\Column(type: "datetime", nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
-    private  ?\DateTimeInterface $updatedAt;
+    private ?\DateTimeInterface $updatedAt;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
     private ?\DateTimeInterface $birthdate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
     private ?string $country = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
     private ?string $address = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
-    private ?string $phonenumber = null;
+    private ?string $phoneNumber = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
     private ?bool $isAvailable = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(["user:read", "user:write"])]
-
-    private ?bool $driversLicense = null;
+    private ?string $driversLicense = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserLanguage::class, orphanRemoval: true)]
     #[Groups(["user:read"])]
-
     private Collection $languages;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Experience::class, orphanRemoval: true)]
     #[Groups(["user:read"])]
-
     private Collection $experiences;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Education::class, orphanRemoval: true)]
@@ -199,25 +179,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     /**
      * A visual identifier that represents this user.
      *
-     [see UserInterface
+     * [see UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     /**
      * The public representation of the user (e.g. a username, an email address, etc.)
      *
-     [see UserInterface
+     * [see UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
-     [see UserInterface
+     * [see UserInterface
      */
     public function getRoles(): array
     {
@@ -236,11 +216,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     }
 
     /**
-     [see UserInterface
+     * [see UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -251,7 +231,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     }
 
     /**
-     [see UserInterface
+     * [see UserInterface
      */
     public function getSalt()
     {
@@ -259,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     }
 
     /**
-     [see UserInterface
+     * [see UserInterface
      */
     public function eraseCredentials()
     {
@@ -275,7 +255,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     }
 
     /**
-     [return Collection|Post[]
+     * [return Collection|Post[]
      */
     public function getPosts(): Collection
     {
@@ -322,6 +302,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     {
         return $this->updatedAt;
     }
+
     /*
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
@@ -356,8 +337,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     }
 
     #[Groups(["user:read"])]
-    public function getFullName(){
-        return $this->firstName .' '.$this->lastName;
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     public function getBirthdate(): ?\DateTimeInterface
@@ -366,7 +348,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     }
 
     #[Groups(["user:read"])]
-    public function getBirthDateHuman(){
+    public function getBirthDateHuman()
+    {
         if ($this->getBirthDate() === null) return "";
         return Carbon::instance($this->getBirthDate())->isoFormat("LL");
 
@@ -408,9 +391,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
         return $this->phonenumber;
     }
 
-    public function setPhonenumber(?string $phonenumber): static
+    public function setPhonenumber(?string $phoneNumber): static
     {
-        $this->phonenumber = $phonenumber;
+        $this->phonenumber = $phoneNumber;
 
         return $this;
     }
@@ -427,12 +410,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
         return $this;
     }
 
-    public function isDriversLicense(): ?bool
+    public function isDriversLicense(): ?string
     {
         return $this->driversLicense;
     }
 
-    public function setDriversLicense(?bool $driversLicense): static
+    public function setDriversLicense(?string $driversLicense): static
     {
         $this->driversLicense = $driversLicense;
 
@@ -573,10 +556,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
 
         return $this;
     }
+
     public function getLocale()
     {
         return $this->locale;
     }
+
     public function setLocale($locale)
     {
         $this->locale = $locale;

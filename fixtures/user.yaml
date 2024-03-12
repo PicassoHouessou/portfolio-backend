@@ -1,17 +1,17 @@
 App\Entity\User:
-  user_picasso:
-    username: 'picassohouessou'
-    firstName: "Picasso"
-    lastName: "Houessou-Dossou"
-    birthdate: <dateTime('1998-04-04')>
-    email: '%yahoo_email%'
-    brief: "I have a degree in Computer Science with a major in Computer Network Administration. I work on system and network administration projects, but also on the creation of websites and web applications. I enjoy thinking and investing my time on new projects, because each project is unique and you learn new things and gain experience as long as you invest yourself in it; and that's what I do or try to do the best I can. I am very open and it is always a pleasure to exchange, to combine common efforts and to discover new horizons.I have a degree in Computer Science with a major in Computer Network Administration. I work on system and network administration projects, but also on the creation of websites and web applications. I enjoy thinking and investing my time on new projects, because each project is unique and you learn new things and gain experience as long as you invest yourself in it; and that's what I do or try to do the best I can. I am very open and it is always a pleasure to exchange, to combine common efforts and to discover new horizons."
-    address: "62137 Coulogne, france"
-    website: "https://picassohouessou.com"
-    driversLicense: Category B
-    phone_number: "+33 06 0150 01 66"
-    github: "https://github.com/PicassoHouessou/"
-    linkedin: "https://www.linkedin.com/in/picassohouessou/"
-    password: <password(2, 6)>
-    driver_license: "Category B"
+    user_picasso:
+        username: 'picassohouessou'
+        firstName: "Picasso"
+        lastName: "Houessou-Dossou"
+        birthdate: <dateTime('1998-04-04')>
+        email: '%yahoo_email%'
+        brief: "I have a degree in Computer Science with a major in Computer Network Administration. I work on system and network administration projects, but also on the creation of websites and web applications. I enjoy thinking and investing my time on new projects, because each project is unique and you learn new things and gain experience as long as you invest yourself in it; and that's what I do or try to do the best I can. I am very open and it is always a pleasure to exchange, to combine common efforts and to discover new horizons.I have a degree in Computer Science with a major in Computer Network Administration. I work on system and network administration projects, but also on the creation of websites and web applications. I enjoy thinking and investing my time on new projects, because each project is unique and you learn new things and gain experience as long as you invest yourself in it; and that's what I do or try to do the best I can. I am very open and it is always a pleasure to exchange, to combine common efforts and to discover new horizons."
+        address: "62137 Coulogne, france"
+        website: "https://picassohouessou.com"
+        driversLicense: Category B
+        phone_number: "+33 06 0150 01 66"
+        github: "https://github.com/PicassoHouessou/"
+        linkedin: "https://www.linkedin.com/in/picassohouessou/"
+        password: <password(2, 6)>
+        drivers_license: "Category B"
 

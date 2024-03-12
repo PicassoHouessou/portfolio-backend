@@ -2,15 +2,15 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\PostCategory;
+use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class PostCategoryFixtures extends Fixture
+class CategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $postCategory = new PostCategory();
+        $postCategory = new Category();
         $postCategory
             //->setCreatedAt()
             ->setName("test");

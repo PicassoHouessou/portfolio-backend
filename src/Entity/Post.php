@@ -2,82 +2,94 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;;
-
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PostRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ["groups" => ["post:read"]],
     denormalizationContext: ["groups" => ["post:write"]],
 )]
+#[UniqueEntity(fields: ["slug"])]
+#[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'title', 'subtitle', 'externalUrl', 'createdAt', 'updatedAt'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'subtitle' => 'partial', 'externalUrl' => 'partial', 'createdAt' => 'partial'])]
+#[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-
 class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-
     private $id;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["post:read", "post:write"])]
     #[Assert\NotBlank()]
     #[Assert\Length(min: "10", max: "200")]
-
-    private $title;
+    private string $title;
 
     #[Gedmo\Slug(fields: ["title"])]
     #[ORM\Column(type: "string", length: 230)]
-
-    private $slug;
+    private string $slug;
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
     #[Assert\DateTime()]
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt = null;
 
     #[Gedmo\Timestampable()]
     #[ORM\Column(type: "datetime", nullable: true)]
     #[Assert\DateTime()]
-    private $updatedAt;
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: "post", orphanRemoval: true)]
-
     private $comments;
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: "text", nullable: true)]
     #[Groups(["post:read", "post:write"])]
     #[Assert\NotBlank()]
     #[Assert\Length(max: "20000")]
-
-    private $content;
+    private ?string $content = null;
 
     #[ORM\Column(type: "boolean")]
     #[Groups(["post:read", "post:write"])]
     #[Assert\NotBlank()]
-    private $isActivated = false;
+    private bool $isEnabled = false;
 
-    #[ORM\ManyToMany(targetEntity: PostCategory::class, inversedBy: "posts")]
-
+    #[ORM\ManyToMany(targetEntity: Category::class)]
     private $categories;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: "posts")]
-
+    #[ORM\ManyToMany(targetEntity: Tag::class)]
     private $tags;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "posts")]
     #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+    #[ORM\Column(type: "string", nullable: true)]
+    private ?string $externalUrl = null;
 
-    private $author;
+
+    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    #[ApiProperty(types: ['https://schema.org/image'])]
+    private ?MediaObject $image = null;
+
+
+    #[ORM\ManyToOne(targetEntity: PostType::class)]
+    private PostType $type;
+
 
     public function __construct()
     {
@@ -125,6 +137,7 @@ class Post
 
         return Carbon::instance($this->getCreatedAt())->diffForHumans();
     }
+
     /*
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
@@ -138,6 +151,13 @@ class Post
     {
         return $this->updatedAt;
     }
+
+    public function getUpdatedAtAgo()
+    {
+
+        return Carbon::instance($this->getUpdatedAt())->diffForHumans();
+    }
+
     /*
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
@@ -187,14 +207,14 @@ class Post
         return $this;
     }
 
-    public function getIsActivated(): ?bool
+    public function getIsEnabled(): ?bool
     {
-        return $this->isActivated;
+        return $this->isEnabled;
     }
 
-    public function setIsActivated(bool $isActivated): self
+    public function setIsEnabled(bool $isEnabled): self
     {
-        $this->isActivated = $isActivated;
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
@@ -205,21 +225,19 @@ class Post
         return $this->categories;
     }
 
-    public function addCategory(PostCategory $category): self
+    public function addCategory(Category $category): self
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
         }
-
         return $this;
     }
 
-    public function removeCategory(PostCategory $category): self
+    public function removeCategory(Category $category): self
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
-
         return $this;
     }
 
@@ -258,4 +276,39 @@ class Post
 
         return $this;
     }
+
+    public function getType(): PostType
+    {
+        return $this->type;
+    }
+
+    public function setType(PostType $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getExternalUrl(): ?string
+    {
+        return $this->externalUrl;
+    }
+
+    public function setExternalUrl(?string $externalUrl): static
+    {
+        $this->externalUrl = $externalUrl;
+        return $this;
+    }
+
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaObject $image): void
+    {
+        $this->image = $image;
+    }
+
+
 }

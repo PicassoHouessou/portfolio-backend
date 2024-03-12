@@ -1,7 +1,9 @@
 <?php
 
-namespace App\DataPersister;
+namespace App\State;
 
+use ApiPlatform\Doctrine\Common\State\PersistProcessor;
+use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
 use ApiPlatform\State\ProcessorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -11,18 +13,17 @@ use ApiPlatform\Metadata\Operation;
 
 final class ContactUsPostProcessor implements ProcessorInterface
 {
-    private $mailer;
-
-    private $myEmail;
-    private $noReplyEmail;
-
-
-    public function __construct(MailerInterface $mailer, $myEmail, $noReplyEmail)
+    public function __construct(
+        private ProcessorInterface $persistProcessor,
+        private ProcessorInterface $removeProcessor,
+        private MailerInterface $mailer,
+ private $myEmail, private $noReplyEmail
+    )
     {
 
-        $this->mailer = $mailer;
-        $this->myEmail = $myEmail;
-        $this->noReplyEmail = $noReplyEmail;
+//        $this->mailer = $mailer;
+//        $this->myEmail = $myEmail;
+//        $this->noReplyEmail = $noReplyEmail;
     }
     public function process($data, Operation $operation, array $uriVariables = [], array $context = [])
     {
