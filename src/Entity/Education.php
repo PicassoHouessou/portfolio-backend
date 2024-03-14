@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -11,8 +12,11 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use App\Repository\EducationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EducationRepository::class)]
@@ -20,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ["groups" => ["education:read"]],
     denormalizationContext: ["groups" => ["education:write"]]
 )]
-#[ApiResource(  operations:[
+#[ApiResource(operations: [
     new GetCollection(uriTemplate: '/users/{userId}/educations',
         uriVariables: [
             'userId' => new Link(fromClass: User::class, toProperty: 'user'),
@@ -35,51 +39,45 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(uriTemplate: '/users/{userId}/educations/{id}',
         uriVariables: [
             'userId' => new Link(fromClass: User::class, toProperty: 'user'),
-            'id' => new Link(fromClass: Experience::class),
+            'id' => new Link(fromClass: Education::class),
         ]
     )],
     normalizationContext: ["groups" => ["experience:read"]],
     denormalizationContext: ["groups" => ["experience:write"]],
 )]
-#[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'school', 'startAt','location,', 'endAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'degree' => 'partial', 'school' => 'partial', 'location' => 'partial' ])]
+#[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'school', 'startAt', 'location,', 'endAt'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'degree' => 'partial', 'school' => 'partial', 'location' => 'partial'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['startAt', 'endAt'])]
-class Education
+class Education implements Translatable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["education:read","user:read"])]
+    #[Groups(["education:read", "user:read"])]
     private ?int $id = null;
-    #[ORM\Column(length: 255,nullable: true)]
-    #[Groups(["education:read", "education:write","user:read"])]
-    private ?string $degree = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["education:read", "education:write","user:read"])]
-    private ?string $school = null;
-
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Groups(["education:read", "education:write","user:read"])]
+    #[Groups(["education:read", "education:write", "user:read"])]
     private ?\DateTimeInterface $startAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Groups(["education:read", "education:write","user:read"])]
+    #[Groups(["education:read", "education:write", "user:read"])]
     private ?\DateTimeInterface $endAt = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["education:read", "education:write","user:read"])]
-    private ?string $description = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["education:read", "education:write","user:read"])]
-    private ?string $location = null;
 
     #[ORM\ManyToOne(inversedBy: 'educations')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(["education:read", "education:write"])]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'education', targetEntity: EducationTranslation::class)]
+    #[Groups(["education:read"])]
+    private $translations;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -166,6 +164,34 @@ class Education
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(EducationTranslation $language): static
+    {
+        if (!$this->translations->contains($language)) {
+            $this->translations->add($language);
+            $language->setExperience($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(EducationTranslation $language): static
+    {
+        if ($this->translations->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getEducation() === $this) {
+                $language->setEducation()(null);
+            }
+        }
 
         return $this;
     }

@@ -51,6 +51,10 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\DataFixtures\Processor\UserProcessor: ~
+    #    Gedmo\Mapping\Driver\AttributeReader: ~
+    #    Gedmo\Mapping\Driver\AttributeAnnotationReader: ~
+    #    App\DataFixtures\Processor\TranslationProcessor:
+    #        $reader: '@Gedmo\Mapping\Driver\AttributeAnnotationReader'
     App\DataFixtures\Provider\MediaProvider:
         tags: [ { name: nelmio_alice.faker.provider } ]
 
@@ -61,14 +65,6 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    Gedmo\Translatable\TranslatableListener:
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-            - [ setDefaultLocale, [ "%locale%" ] ]
-            - [ setTranslationFallback, [ false ] ]
 
     gedmo.listener.timestampable:
         class: Gedmo\Timestampable\TimestampableListener

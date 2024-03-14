@@ -135,6 +135,4 @@ class Tag
             $this->createdAt = new \DateTime('now');
         }
     }
-
-
 }

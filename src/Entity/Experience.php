@@ -8,23 +8,26 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\ExperienceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Metadata\Link;
+
 #[ORM\Entity(repositoryClass: ExperienceRepository::class)]
-#[ApiResource( operations:[
-new Get(), new GetCollection(),
-new Post(),new Put(),
+#[ApiResource(operations: [
+    new Get(), new GetCollection(),
+    new Post(), new Put(),
 ],
     normalizationContext: ["groups" => ["experience:read"]],
     denormalizationContext: ["groups" => ["experience:write"]],
 )]
-#[ApiResource(  operations:[
+#[ApiResource(operations: [
     new GetCollection(uriTemplate: '/users/{userId}/experiences',
         uriVariables: [
             'userId' => new Link(fromClass: User::class, toProperty: 'user'),
@@ -32,54 +35,40 @@ new Post(),new Put(),
     ),
     new Post(uriTemplate: '/users/{userId}/experiences',
         uriVariables: [
-'userId' => new Link(fromClass: User::class, toProperty: 'user'),
-],
+            'userId' => new Link(fromClass: User::class, toProperty: 'user'),
+        ],
         itemUriTemplate: '/users/{userId}/experiences/{id}'
     ),
     new Get(uriTemplate: '/users/{userId}/experiences/{id}',
         uriVariables: [
-        'userId' => new Link(fromClass: User::class, toProperty: 'user'),
-        'id' => new Link(fromClass: Experience::class),
-    ]
+            'userId' => new Link(fromClass: User::class, toProperty: 'user'),
+            'id' => new Link(fromClass: Experience::class),
+        ]
     )],
     normalizationContext: ["groups" => ["experience:read"]],
     denormalizationContext: ["groups" => ["experience:write"]],
 )]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'title', 'company', 'startAt', 'endAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'company' => 'partial', ])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'company' => 'partial',])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['startAt', 'endAt'])]
 class Experience
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["experience:read", "experience:write","user:read"])]
-
+    #[Groups(["experience:read", "experience:write", "user:read"])]
     private ?int $id = null;
-    #[ORM\Column(length: 255)]
-    #[Groups(["experience:read", "experience:write","user:read"])]
-    private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["experience:read", "experience:write","user:read"])]
+    #[Groups(["experience:read", "experience:write", "user:read"])]
     private ?string $company = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Groups(["experience:read", "experience:write","user:read"])]
+    #[Groups(["experience:read", "experience:write", "user:read"])]
     private ?\DateTimeInterface $startAt = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Groups(["experience:read", "experience:write","user:read"])]
+    #[Groups(["experience:read", "experience:write", "user:read"])]
     private ?\DateTimeInterface $endAt = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["experience:read", "experience:write","user:read"])]
-    private ?string $description = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["experience:read", "experience:write","user:read"])]
-    private ?string $location = null;
-
     #[ORM\ManyToOne(inversedBy: 'experiences')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(["experience:read", "experience:write"])]
@@ -88,6 +77,16 @@ class Experience
     #[ORM\ManyToOne]
     #[Groups(["experience:read", "experience:write"])]
     private ?LocationType $locationType = null;
+
+    #[ORM\OneToMany(mappedBy: 'experience', targetEntity: ExperienceTranslation::class)]
+    #[Groups(["education:read"])]
+    private $translations;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -187,6 +186,33 @@ class Experience
     public function setLocationType(?LocationType $locationType): static
     {
         $this->locationType = $locationType;
+
+        return $this;
+    }
+
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(ExperienceTranslation $language): static
+    {
+        if (!$this->translations->contains($language)) {
+            $this->translations->add($language);
+            $language->setExperience($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(ExperienceTranslation $language): static
+    {
+        if ($this->translations->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getExperience() === $this) {
+                $language->setExperience(null);
+            }
+        }
 
         return $this;
     }

@@ -24,12 +24,12 @@ doctrine:
             #                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Sluggable/Handler"
             #                alias: GedmoSluggable # (optional) it will default to the name set for the mapping
             #                is_bundle: false
-            gedmo_translatable:
-                type: annotation
-                prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translatable/Entity"
-                alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
-                is_bundle: false
+            #            gedmo_translatable:
+            #                type: annotation
+            #                prefix: Gedmo\Translatable\Entity
+            #                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translatable/Entity"
+            #                alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+            #                is_bundle: false
             gedmo_translator:
                 type: annotation
                 prefix: Gedmo\Translator\Entity

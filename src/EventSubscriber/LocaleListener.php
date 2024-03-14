@@ -4,23 +4,22 @@ namespace App\EventSubscriber;
 
 use App\Repository\LocaleRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use Gedmo\Translatable\TranslatableListener;
 
 class LocaleListener implements EventSubscriberInterface
 {
 
     private $availableLocales;
     private $defaultLocale;
-    private $translatableListener;
+    //private $translatableListener;
     protected $currentLocale;
 
-    public function __construct(TranslatableListener $translatableListener, LocaleRepository $localeRepository)
+    public function __construct(LocaleRepository $localeRepository)
     {
-        $this->translatableListener = $translatableListener;
+        //$this->translatableListener = $translatableListener;
         $this->availableLocales = $localeRepository->getAvailableLocales();
         $this->defaultLocale = $localeRepository->getDefaultLocale();
     }
@@ -36,7 +35,7 @@ class LocaleListener implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event)
     {
         // Persist DefaultLocale in translation table
-        $this->translatableListener->setPersistDefaultLocaleTranslation(true);
+        //$this->translatableListener->setPersistDefaultLocaleTranslation(true);
 
         /** @var Request $request */
         $request = $event->getRequest();
@@ -51,7 +50,7 @@ class LocaleListener implements EventSubscriberInterface
             $request->setLocale($this->defaultLocale);
         }
         // Set currentLocale
-        $this->translatableListener->setTranslatableLocale($request->getLocale());
+        //$this->translatableListener->setTranslatableLocale($request->getLocale());
         $this->currentLocale = $request->getLocale();
     }
 

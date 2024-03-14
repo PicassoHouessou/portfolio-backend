@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use App\Entity\Post as Article;
 use App\Repository\UserRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,7 +19,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,8 +27,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
-        new Get(), new GetCollection(),
-        new Post(), new Put(),
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
     ],
 
     normalizationContext: ["groups" => ["user:read"]],
@@ -41,7 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'email', 'username', 'firstName', 'lastName', 'roles', 'createdAt', 'updatedAt'])]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial', 'username' => 'partial', 'roles' => 'partial'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, Translatable
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
     #[ORM\Id]
@@ -108,18 +110,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
     private ?string $phoneNumber = null;
-
     #[ORM\Column(nullable: true)]
     #[Groups(["user:read", "user:write"])]
     private ?bool $isAvailable = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(["user:read", "user:write"])]
-    private ?string $driversLicense = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserLanguage::class, orphanRemoval: true)]
     #[Groups(["user:read"])]
     private Collection $languages;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserTranslation::class, orphanRemoval: true)]
+    #[Groups(["user:read"])]
+    private Collection $translations;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Experience::class, orphanRemoval: true)]
     #[Groups(["user:read"])]
@@ -128,11 +128,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Education::class, orphanRemoval: true)]
     #[Groups(["user:read"])]
     private Collection $educations;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["user:read", "user:write"])]
-    #[Gedmo\Translatable]
-    private ?string $brief = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $website = null;
@@ -143,18 +138,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $linkedin = null;
 
-    /**
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    #[Gedmo\Locale]
-    #[Groups(["user:read", "user:write"])]
-    private $locale;
-
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->languages = new ArrayCollection();
+        $this->translations = new ArrayCollection();
         $this->experiences = new ArrayCollection();
         $this->educations = new ArrayCollection();
     }
@@ -262,7 +250,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
         return $this->posts;
     }
 
-    public function addPost(Post $post): self
+    public function addPost(Article $post): self
     {
         if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
@@ -272,7 +260,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
         return $this;
     }
 
-    public function removePost(Post $post): self
+    public function removePost(Article $post): self
     {
         if ($this->posts->contains($post)) {
             $this->posts->removeElement($post);
@@ -422,18 +410,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserLanguage>
-     */
+
     public function getLanguages(): Collection
     {
-        return $this->languages;
+        return $this->translations;
     }
 
     public function addLanguage(UserLanguage $language): static
     {
-        if (!$this->languages->contains($language)) {
-            $this->languages->add($language);
+        if (!$this->translations->contains($language)) {
+            $this->translations->add($language);
             $language->setUser($this);
         }
 
@@ -442,7 +428,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
 
     public function removeLanguage(UserLanguage $language): static
     {
-        if ($this->languages->removeElement($language)) {
+        if ($this->translations->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getUser() === $this) {
+                $language->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(UserTranslation $language): static
+    {
+        if (!$this->translations->contains($language)) {
+            $this->translations->add($language);
+            $language->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(UserTranslation $language): static
+    {
+        if ($this->translations->removeElement($language)) {
             // set the owning side to null (unless already changed)
             if ($language->getUser() === $this) {
                 $language->setUser(null);
@@ -565,5 +579,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Transla
     public function setLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    public function __toString(): string
+    {
+        return (string)$this->getId();
     }
 }

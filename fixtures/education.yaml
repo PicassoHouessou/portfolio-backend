@@ -1,24 +1,55 @@
 App\Entity\Education:
-  education_1:
-    degree: "Bachelor's degree in Computer Science - option Computer Network Administration"
-    school: "National School of Applied Economics and Management (ENEAM)"
-    start_at: <dateTime('2018-06-01')>
-    end_at: <dateTime('2019-07-31')>
-    description: ""
-    location: "Cotonou, Benin"
-    user: '@user_picasso'
-  education_2:
-    degree: "BACCALAUREATE French-speaking Africa (College diploma equivalent)"
-    school: "College of General Education of Albarika"
-    start_at: <dateTime('2018-10-01')>
-    end_at: <dateTime('2019-01-31')>
-    location: "Parakou, Benin"
-    user: '@user_picasso'
-  education_3:
-    degree: "Computer Engineering"
-    school: "Université du Littoral de la Côte Opale in Calais."
-    start_at: <dateTime('2023-08-03')>
-    end_at: <dateTime('2025-11-31')>
-    description: ""
-    location: "62100 Coulogne, France"
-    user: '@user_picasso'
+    education_1:
+        start_at: <dateTime('2018-06-01')>
+        end_at: <dateTime('2019-07-31')>
+        user: '@user_picasso'
+    education_2:
+        start_at: <dateTime('2018-10-01')>
+        end_at: <dateTime('2019-01-31')>
+        location: "Parakou, Benin"
+        user: '@user_picasso'
+    education_3:
+        start_at: <dateTime('2023-08-03')>
+        end_at: <dateTime('2025-11-31')>
+        description: ""
+        location: "62100 Coulogne, France"
+        user: '@user_picasso'
+App\Entity\EducationTranslation:
+    education_translation_1_en:
+        locale: '@language_en'
+        degree: "Bachelor's degree in Computer Science - option Computer Network Administration"
+        school: "National School of Applied Economics and Management (ENEAM)"
+        location: "Cotonou, Benin"
+        education: '@education_1'
+    education_translation_1_fr:
+        locale: '@language_fr'
+        education: '@education_1'
+        degree: "Licence en Informatique de gestion option administration des Réseaux Informatiques"
+        school: "Ecole Nationale d'Economie Appliquée et de Management (ENEAM)"
+        location: "Cotonou, Bénin"
+    education_translation_2_en:
+        locale: '@language_en'
+        education: '@education_2'
+        degree: "BACCALAUREATE French-speaking Africa (College diploma equivalent)"
+        school: "College of General Education of Albarika"
+        location: "Parakou, Benin"
+    education_translation_2_fr:
+        locale: '@language_fr'
+        education: '@education_2'
+        degree: "Licence en Informatique de gestion option administration des Réseaux Informatiques"
+        school: "Collège d'Enseignement Général Albarika"
+        location: "Parakou, Bénin"
+    education_translation_3_en:
+        locale: '@language_en'
+        education: '@education_3'
+        degree: "Computer Engineering"
+        school: "Université du Littoral de la Côte Opale in Calais."
+        location: "62100 Coulogne, France"
+    education_translation_3_fr:
+        locale: '@language_fr'
+        education: '@education_3'
+        degree: "Ingénieur en Informatique"
+        school: "Université du Littoral de la Côte Opale"
+        location: "62100 Coulogne, France"
+
+

@@ -1,7 +1,6 @@
 App\Entity\MediaObject:
     media_alexas:
         file: <media(alexas-systemes.jpg)>
-
 App\Entity\Post:
     project_1:
         external_url: "https://alexassystemes.wimtec.solutions"
