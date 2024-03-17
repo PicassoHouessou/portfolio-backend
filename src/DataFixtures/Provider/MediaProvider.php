@@ -29,8 +29,9 @@ class MediaProvider
             self::$filesystem->mkdir($tmpDirectory);
         }
 
+        $originalFileName = $projectDir . '/src/DataFixtures/images/' . $str;
         $fileName = Path::normalize($tmpDirectory . $str);
-        self::$filesystem->copy(Path::normalize($projectDir . '/src/DataFixtures/images/' . $str), $fileName);
+        self::$filesystem->copy(Path::normalize($originalFileName), $fileName);
 
         $filePostBlog = new UploadedFile($fileName, $str, 'image/jpg', null, true);
         return $filePostBlog;

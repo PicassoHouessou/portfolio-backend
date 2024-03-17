@@ -2,25 +2,27 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;;
-
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ApiResource()]
-#[ORM\Entity(repositoryClass: CommentRepository::class)]
+;
 
+#[ApiResource(
+    normalizationContext: ["groups" => ["comment:read"]],
+    denormalizationContext: ["groups" => ["comment:write"]],)]
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-
+    #[Groups(["comment:read", "post:read"])]
     private $id;
 
     #[ORM\Column(type: "string", length: 200)]
@@ -28,7 +30,7 @@ class Comment
     #[Assert\Length(
         max: 200
     )]
-
+    #[Groups(["comment:read", "comment:write", "post:read"])]
     private $fullName;
 
     #[ORM\Column(type: "string", length: 200)]
@@ -37,6 +39,7 @@ class Comment
         max: 200
     )]
     #[Assert\Email()]
+    #[Groups(["comment:read", "comment:write", "post:read"])]
     private $email;
 
     #[ORM\Column(type: "string", length: 200, nullable: true)]
@@ -44,42 +47,36 @@ class Comment
     #[Assert\Length(
         max: 200
     )]
-
+    #[Groups(["comment:read", "comment:write", "post:read"])]
     private $website;
 
     #[ORM\Column(type: "text")]
     #[Assert\NotBlank()]
     #[Assert\Length(max: 5000)]
-
+    #[Groups(["comment:read", "comment:write", "post:read"])]
     private $message;
 
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
-
     private $createdAt;
 
 
     #[Gedmo\Timestampable(on: "update")]
     #[ORM\Column(type: "datetime", nullable: true)]
-
     private $updatedAt;
 
     #[ORM\Column(type: "boolean")]
-
     private $isActive;
 
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: "comments")]
     #[ORM\JoinColumn(nullable: false)]
-
     private $post;
 
     #[ORM\ManyToOne(targetEntity: Comment::class, inversedBy: "replies")]
-
     private $parent;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: "parent")]
-
     private $replies;
 
     public function __construct()
@@ -200,7 +197,6 @@ class Comment
 
         return $this;
     }
-
 
 
     public function getReplies(): Collection

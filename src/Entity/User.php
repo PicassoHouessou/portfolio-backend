@@ -11,7 +11,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use App\Entity\Post as Article;
 use App\Repository\UserRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,23 +24,25 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ApiResource(
-    operations: [
-        new Get(),
-        new GetCollection(),
-        new Post(),
-        new Put(),
-    ],
+#[
+    ApiResource(
+        operations: [
+            new Get(),
+            new GetCollection(),
+            new Post(securityPostDenormalize: 'is_granted(\'VIEW\',object)'),
+            new Put(security: 'is_granted(\'EDIT\',object)'),
+            new Put(security: 'is_granted(\'EDIT\',object)'),
+        ],
 
-    normalizationContext: ["groups" => ["user:read"]],
-    denormalizationContext: ["groups" => ["user:write"]],
+        normalizationContext: ["groups" => ["user:read"]],
+        denormalizationContext: ["groups" => ["user:write"]],
 
-)]
+    )]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ["email"])]
 #[UniqueEntity(fields: ["username"])]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'email', 'username', 'firstName', 'lastName', 'roles', 'createdAt', 'updatedAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial', 'username' => 'partial', 'roles' => 'partial'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial', 'username' => 'partial', 'roles' => 'partial', 'translations.locale.code' => 'exact'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -49,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
+    #[Groups(["user:read"])]
     private $id;
 
 
@@ -60,6 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     #[ORM\Column(type: "json")]
+    #[Groups(["user:read"])]
     private $roles = [];
 
     #[ORM\Column(type: "string")]
@@ -72,19 +75,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(["user:read", "user:write"])]
     private $username;
 
-    /**
-     * #[ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
-     */
-    private $posts;
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
-    #[Groups(["user:read", "user:write"])]
+    #[Groups(["user:read"])]
     private ?\DateTimeInterface $createdAt;
 
     #[Gedmo\Timestampable(on: "update")]
     #[ORM\Column(type: "datetime", nullable: true)]
-    #[Groups(["user:read", "user:write"])]
+    #[Groups(["user:read"])]
     private ?\DateTimeInterface $updatedAt;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -140,7 +139,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->experiences = new ArrayCollection();
@@ -238,37 +236,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * [return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Article $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Article $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getAuthor() === $this) {
-                $post->setAuthor(null);
-            }
-        }
 
         return $this;
     }
@@ -374,14 +341,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhonenumber(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phonenumber;
+        return $this->phoneNumber;
     }
 
-    public function setPhonenumber(?string $phoneNumber): static
+    public function setPhoneNumber(?string $phoneNumber): static
     {
-        $this->phonenumber = $phoneNumber;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -397,19 +364,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function isDriversLicense(): ?string
-    {
-        return $this->driversLicense;
-    }
-
-    public function setDriversLicense(?string $driversLicense): static
-    {
-        $this->driversLicense = $driversLicense;
-
-        return $this;
-    }
-
 
     public function getLanguages(): Collection
     {
@@ -523,17 +477,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBrief(): ?string
-    {
-        return $this->brief;
-    }
-
-    public function setBrief(?string $brief): static
-    {
-        $this->brief = $brief;
-
-        return $this;
-    }
 
     public function getWebsite(): ?string
     {

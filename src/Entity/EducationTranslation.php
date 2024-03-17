@@ -53,7 +53,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ["groups" => ["education_translation:write"]],
 )]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'school', 'location'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'degree' => 'partial', 'school' => 'partial', 'location' => 'partial'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'degree' => 'partial', 'school' => 'partial', 'location' => 'partial', 'locale' => 'exact'])]
 class EducationTranslation implements Translatable
 {
     #[ORM\Id]
@@ -81,7 +81,7 @@ class EducationTranslation implements Translatable
     #[Groups(["education_translation:read", "education_translation:write", "education:read"])]
     private Locale $locale;
 
-    #[ORM\ManyToOne(targetEntity: Education::class)]
+    #[ORM\ManyToOne(targetEntity: Education::class, inversedBy: "translations")]
     #[Groups(["education_translation:read", "education_translation:write"])]
     private Education $education;
 

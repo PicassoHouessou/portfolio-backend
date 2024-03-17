@@ -7,10 +7,14 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Post as PostMeta;
+use ApiPlatform\Metadata\Put;
 use App\Repository\EducationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,6 +25,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EducationRepository::class)]
 #[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new PostMeta(security: "is_granted('ROLE_USER')"),
+        new Put(security: "is_granted('ROLE_USER')"),
+        new Patch(security: "is_granted('ROLE_USER')"),
+        new Delete(security: "is_granted('ROLE_USER')"),
+    ],
     normalizationContext: ["groups" => ["education:read"]],
     denormalizationContext: ["groups" => ["education:write"]]
 )]
@@ -42,11 +54,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'id' => new Link(fromClass: Education::class),
         ]
     )],
-    normalizationContext: ["groups" => ["experience:read"]],
-    denormalizationContext: ["groups" => ["experience:write"]],
+    normalizationContext: ["groups" => ["education:read"]],
+    denormalizationContext: ["groups" => ["education:write"]],
 )]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'school', 'startAt', 'location,', 'endAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'degree' => 'partial', 'school' => 'partial', 'location' => 'partial'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'degree' => 'partial', 'school' => 'partial', 'location' => 'partial', 'translations.locale.code' => 'exact'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['startAt', 'endAt'])]
 class Education implements Translatable
 {

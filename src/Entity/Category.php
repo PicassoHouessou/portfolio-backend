@@ -11,12 +11,13 @@ use App\Repository\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
-    normalizationContext: ["groups" => ["project_category:read"]],
-    denormalizationContext: ["groups" => ["project_category:write"]]
+    normalizationContext: ["groups" => ["category:read"]],
+    denormalizationContext: ["groups" => ["category:write"]]
 )]
 #[ApiResource(operations: [
     new GetCollection(uriTemplate: '/projects/{projectId}/tags',
@@ -44,6 +45,7 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["category:read", "post:read"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -51,6 +53,7 @@ class Category
         new Assert\NotNull(),
         new Assert\Length(max: 250),
     ])]
+    #[Groups(["category:read", "category:write", "post:read"])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -59,20 +62,24 @@ class Category
         new Assert\NotNull(),
         new Assert\Length(max: 250),
     ])]
+    #[Groups(["category:read", "category:write", "post:read"])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\Sequentially([
         new Assert\Length(max: 5000),
     ])]
+    #[Groups(["category:read", "category:write", "post:read"])]
     private ?string $description = null;
 
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable(on: "create")]
+    #[Groups(["category:read", "category:write"])]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable()]
+    #[Groups(["category:read", "category:write"])]
     private ?\DateTimeInterface $updatedAt = null;
 
 

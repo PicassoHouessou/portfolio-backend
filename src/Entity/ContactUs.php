@@ -2,33 +2,31 @@
 
 namespace App\Entity;
 
-use Carbon\Carbon;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ContactUsRepository;
-use  ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\ApiResource;;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Put;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use App\Repository\ContactUsRepository;
+use App\State\ContactUsPostProcessor;
+use Carbon\Carbon;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use App\State\ContactUsPostProcessor;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 
 #[ApiResource(
-    normalizationContext: ["groups" => ["contact_us:read"]],
-    denormalizationContext: ["groups" => ["contact_us:write"]],
     operations: [
-        new Get(),
-        new Put(),
-        new Delete(),
-        new GetCollection(),
-        new Post( processor: ContactUsPostProcessor::class),
-    ]
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Post(processor: ContactUsPostProcessor::class),
+    ],
+    normalizationContext: ["groups" => ["contact_us:read"]],
+    denormalizationContext: ["groups" => ["contact_us:write"]]
 
 )]
 #[ApiFilter(SearchFilter::class, properties: ["subject", "partial", "fullName", "partial"])]
@@ -52,7 +50,6 @@ class ContactUs
     #[Groups(["contact_us:read", "contact_us:write"])]
     #[Assert\NotBlank()]
     #[Assert\Email()]
-
     private $email;
 
     #[ORM\Column(type: "string", length: 200)]
@@ -67,7 +64,7 @@ class ContactUs
     #[Groups(["contact_us:read", "contact_us:write"])]
     #[Assert\NotBlank()]
     #[Assert\Length(
-        min: 20,
+        min: 5,
         max: 5000
     )]
     private $message;
@@ -75,7 +72,6 @@ class ContactUs
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
     #[Groups(["contact_us:read"])]
-
     private $createdAt;
 
 

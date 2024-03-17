@@ -4,21 +4,22 @@ App\Entity\User:
         firstName: "Picasso"
         lastName: "Houessou-Dossou"
         birthdate: <dateTime('1998-04-04')>
-        email: '%yahoo_email%'
-        brief: "I have a degree in Computer Science with a major in Computer Network Administration. I work on system and network administration projects, but also on the creation of websites and web applications. I enjoy thinking and investing my time on new projects, because each project is unique and you learn new things and gain experience as long as you invest yourself in it; and that's what I do or try to do the best I can. I am very open and it is always a pleasure to exchange, to combine common efforts and to discover new horizons."
+        email: 'houessoupicasso@yahoo.fr'
         address: "62137 Coulogne, france"
         website: "https://picassohouessou.com"
-        driversLicense: Category B
         phone_number: "+33 06 01 50 01 66"
         github: "https://github.com/PicassoHouessou/"
         linkedin: "https://www.linkedin.com/in/picassohouessou/"
+        roles: [ "ROLE_ADMIN","ROLE_USER" ]
         password: <password(2, 6)>
+App\Entity\UserTranslation:
+    user_picasso_en:
+        locale: '@language_en'
+        user: '@user_picasso'
         drivers_license: "Category B"
-
-Gedmo\Translatable\Entity\Translation:
-    user_picasso_translation_fr:
-        locale: fr
-        objectClass: 'App\Entity\User'
-        field: 'brief'
-        foreignKey: '@user_picasso'
-        content: "Titulaire d'un diplôme en informatique avec une spécialisation en administration de réseaux informatiques, je suis passionné par la création et la gestion de systèmes et de réseaux, ainsi que par le développement de sites et d'applications web. Chaque projet représente pour moi une opportunité d'apprentissage et d'acquisition d'expérience, ce qui me pousse à m'investir pleinement dans chaque mission. Je suis constamment à la recherche de nouveaux défis et de possibilités d'innovation, car j'estime que c'est en sortant de ma zone de confort que je peux réellement progresser. Ouvert d'esprit et enthousiaste, j'apprécie particulièrement les collaborations et les échanges qui permettent d'explorer de nouveaux horizons et d'atteindre des objectifs communs."
+        brief: "I have a degree in Computer Science with a major in Computer Network Administration. I work on system and network administration projects, but also on the creation of websites and web applications. I enjoy thinking and investing my time on new projects, because each project is unique and you learn new things and gain experience as long as you invest yourself in it; and that's what I do or try to do the best I can. I am very open and it is always a pleasure to exchange, to combine common efforts and to discover new horizons."
+    user_picasso_fr:
+        locale: '@language_fr'
+        user: '@user_picasso'
+        drivers_license: "Catégorie B"
+        brief: "Titulaire d'un diplôme en informatique avec une spécialisation en administration de réseaux informatiques, je suis passionné par la création et la gestion de systèmes et de réseaux, ainsi que par le développement de sites et d'applications web. Chaque projet représente pour moi une opportunité d'apprentissage et d'acquisition d'expérience, ce qui me pousse à m'investir pleinement dans chaque mission. Je suis constamment à la recherche de nouveaux défis et de possibilités d'innovation, car j'estime que c'est en sortant de ma zone de confort que je peux réellement progresser. Ouvert d'esprit et enthousiaste, j'apprécie particulièrement les collaborations et les échanges qui permettent d'explorer de nouveaux horizons et d'atteindre des objectifs communs."

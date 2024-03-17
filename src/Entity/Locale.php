@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
-    operations: [new Get(), new GetCollection(), new Post()],
+    operations: [new Get(), new GetCollection(), new Post(security: "is_granted('ROLE_ADMIN')")],
     normalizationContext: ['groups' => ['language:read']],
     denormalizationContext: ['groups' => ['language:write']],
     extraProperties: [
@@ -34,11 +34,11 @@ class Locale
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["language:read", 'user_translation:read', "education_translation:read", "experience_translation:read", "user:read"])]
+    #[Groups(["language:read", 'user_translation:read', "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read"])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 5)]
-    #[Groups(["language:read", "language:write", "user_translation:read", "education_translation:read", "experience_translation:read"])]
+    #[Groups(["language:read", "language:write", "user_translation:read", "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read"])]
     #[Assert\Sequentially([
         new Assert\NotBlank,
         new Assert\Length(max: 5)
@@ -46,7 +46,7 @@ class Locale
     private string $code;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["language:read", "language:write", "user_translation:read", "education_translation:read", "experience_translation:read"])]
+    #[Groups(["language:read", "language:write", "user_translation:read", "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read"])]
     #[Assert\Length(max: 255)]
     private ?string $description;
 

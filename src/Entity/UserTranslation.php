@@ -28,8 +28,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete()
     ],
 
-    normalizationContext: ["groups" => ["user:read"]],
-    denormalizationContext: ["groups" => ["user:write"]],
+    normalizationContext: ["groups" => ["user_translation:read"]],
+    denormalizationContext: ["groups" => ["user_translation:write"]],
 
 )]
 #[UniqueEntity(fields: ["user", 'locale'])]
@@ -46,20 +46,24 @@ class UserTranslation
     private $id;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["user:read", "user:write"])]
+    #[Groups(["user_translation:read", "user_translation:write", "user:read"])]
     private ?string $address = null;
     #[ORM\Column(nullable: true)]
-    #[Groups(["user:read", "user:write"])]
+    #[Groups(["user_translation:read", "user_translation:write", "user:read"])]
     private ?string $driversLicense = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["user:read", "user:write"])]
+    #[Groups(["user_translation:read", "user_translation:write", "user:read"])]
     #[Gedmo\Translatable]
     private ?string $brief = null;
 
     #[ORM\ManyToOne(targetEntity: Locale::class)]
-    #[Groups(["user:read", "user:write"])]
+    #[Groups(["user_translation:read", "user_translation:write", "user:read"])]
     private Locale $locale;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "translations")]
+    #[Groups(["user_translation:read", "user_translation:write"])]
+    private User $user;
 
 
     public function getId(): ?int
@@ -73,7 +77,7 @@ class UserTranslation
         return $this->address;
     }
 
-    public function isDriversLicense(): ?string
+    public function getDriversLicense(): ?string
     {
         return $this->driversLicense;
     }
@@ -107,5 +111,15 @@ class UserTranslation
     {
         $this->locale = $locale;
     }
-    
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
 }

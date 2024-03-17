@@ -53,7 +53,7 @@ class MediaObject
     private ?int $id = null;
 
     #[ApiProperty(types: ['https://schema.org/contentUrl'])]
-    #[Groups(['media_object:read'])]
+    #[Groups(['media_object:read', "post:read"])]
     public ?string $contentUrl = null;
 
     #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath", size: "size", mimeType: "mimeType", originalName: "originalName", dimensions: "dimensions")]
@@ -65,19 +65,19 @@ class MediaObject
     public ?string $filePath = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['media_object:read'])]
+    #[Groups(['media_object:read', "post:read"])]
     public ?string $size = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['media_object:read'])]
+    #[Groups(['media_object:read', "post:read"])]
     public ?string $mimeType = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['media_object:read'])]
+    #[Groups(['media_object:read', "post:read"])]
     public ?string $originalName = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['media_object:read'])]
+    #[Groups(['media_object:read', "post:read"])]
     public ?array $dimensions = null;
 
     public function getId(): ?int

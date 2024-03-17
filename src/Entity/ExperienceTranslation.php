@@ -52,7 +52,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ["groups" => ["experience_translation:write"]],
 )]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'title', 'startAt', 'endAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'locale' => 'exact'])]
 class ExperienceTranslation
 {
     #[ORM\Id]
@@ -72,7 +72,7 @@ class ExperienceTranslation
     #[Groups(["experience_translation:read", "experience_translation:write", "experience:read"])]
     private ?string $location = null;
     #[ORM\ManyToOne(targetEntity: Experience::class, inversedBy: "translations")]
-    #[Groups(["experience_translation:read", "experience_translation:write", "experience:read"])]
+    #[Groups(["experience_translation:read", "experience_translation:write"])]
     private Experience $experience;
     #[ORM\ManyToOne(targetEntity: Locale::class)]
     #[Groups(["experience_translation:read", "experience_translation:write", "experience:read"])]

@@ -1,53 +1,53 @@
 App\Entity\Education:
-    education_1:
+    education_eneam:
         start_at: <dateTime('2018-06-01')>
         end_at: <dateTime('2019-07-31')>
         user: '@user_picasso'
-    education_2:
+    education_bac:
         start_at: <dateTime('2018-10-01')>
         end_at: <dateTime('2019-01-31')>
         location: "Parakou, Benin"
         user: '@user_picasso'
-    education_3:
+    education_eilco:
         start_at: <dateTime('2023-08-03')>
         end_at: <dateTime('2025-11-31')>
         description: ""
         location: "62100 Coulogne, France"
         user: '@user_picasso'
 App\Entity\EducationTranslation:
-    education_translation_1_en:
+    education_eneam_translation_en:
         locale: '@language_en'
         degree: "Bachelor's degree in Computer Science - option Computer Network Administration"
         school: "National School of Applied Economics and Management (ENEAM)"
         location: "Cotonou, Benin"
-        education: '@education_1'
-    education_translation_1_fr:
+        education: '@education_eneam'
+    education_eneam_translation_fr:
         locale: '@language_fr'
-        education: '@education_1'
+        education: '@education_eneam'
         degree: "Licence en Informatique de gestion option administration des Réseaux Informatiques"
         school: "Ecole Nationale d'Economie Appliquée et de Management (ENEAM)"
         location: "Cotonou, Bénin"
-    education_translation_2_en:
+    education_bac_translation_en:
         locale: '@language_en'
-        education: '@education_2'
+        education: '@education_bac'
         degree: "BACCALAUREATE French-speaking Africa (College diploma equivalent)"
         school: "College of General Education of Albarika"
         location: "Parakou, Benin"
-    education_translation_2_fr:
+    education_bac_translation_fr:
         locale: '@language_fr'
-        education: '@education_2'
-        degree: "Licence en Informatique de gestion option administration des Réseaux Informatiques"
+        education: '@education_bac'
+        degree: "BACCALAURÉAT Afrique francophone (Équivalent 2015 - 2016 Diplôme du collège)"
         school: "Collège d'Enseignement Général Albarika"
         location: "Parakou, Bénin"
-    education_translation_3_en:
+    education_eilco_translation_3_en:
         locale: '@language_en'
-        education: '@education_3'
+        education: '@education_eilco'
         degree: "Computer Engineering"
         school: "Université du Littoral de la Côte Opale in Calais."
         location: "62100 Coulogne, France"
-    education_translation_3_fr:
+    education_eilco_translation_fr:
         locale: '@language_fr'
-        education: '@education_3'
+        education: '@education_eilco'
         degree: "Ingénieur en Informatique"
         school: "Université du Littoral de la Côte Opale"
         location: "62100 Coulogne, France"
