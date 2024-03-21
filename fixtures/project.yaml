@@ -40,22 +40,20 @@ App\Entity\Post:
         author: "@user_picasso"
     project_tableau_peinture:
         external_url: "https://tableaupeinturesaratamjidi.wimtec.solutions/"
-
         categories: [ '@project_category_artist' ]
-        is_enabled: false
+        is_enabled: true
         type: "@post_project"
         author: "@user_picasso"
     project_anne_marie_fornet:
         external_url: "https://annefornet-immobilier.wimtec.fun/"
-
         categories: [ '@project_category_real_estate' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_assises_toiles_dejouy:
         external_url: "https://assises-et-toiles-dejouy.wimtec.fun/"
         categories: [ '@project_category_artist' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_auto_ecole_la_destrousse_conduite:
@@ -69,7 +67,7 @@ App\Entity\Post:
         is_enabled: true
         author: "@user_picasso"
     project_boldnect:
-        external_url: "https://boldnect.com"
+        external_url: "https://boldnect.picassohouessou.com"
         categories: [ '@project_category_investment' ]
         is_enabled: true
         type: "@post_project"
@@ -77,16 +75,19 @@ App\Entity\Post:
     project_csh_coworking:
         external_url: "https://cshcoworking.wimtec.solutions/"
         categories: [ '@project_category_coworking' ]
+        is_enabled: true
         type: "@post_project"
         author: "@user_picasso"
     project_ecole_de_la_respiration:
         external_url: "https://ecoledelarespiration.wimtec.fun/"
         categories: [ '@project_category_school' ]
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_la_jardinerie_champs_fleurs:
         external_url: "https://jardineriechampsfleurs.wimtec.solutions/"
         categories: [ '@project_category_garden' ]
+        is_enabled: true
         type: "@post_project"
         author: "@user_picasso"
     project_patines_et_jupons:
@@ -104,7 +105,7 @@ App\Entity\Post:
     project_stephie_piano_piano:
         external_url: "https://stephiepianopiano.wimtec.fun/"
         categories: [ '@project_category_music' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_sylvielitaudon:
@@ -152,14 +153,14 @@ App\Entity\PostContent:
         image: "@media_project_anne_marie_fornet"
         external_url: "https://annefornet-immobilier.wimtec.fun/"
         title: "Anne Marie Fornet"
-        is_enabled: true
+        is_enabled: false
     project_content_assises_toiles_dejouy_en:
         locale: '@language_en'
         post: '@project_assises_toiles_dejouy'
         image: "@media_project_assises_toiles_dejouy"
         external_url: "https://assises-et-toiles-dejouy.wimtec.fun/"
         title: "Assises & Toile Dejouy"
-        is_enabled: true
+        is_enabled: false
     project_content_auto_ecole_la_destrousse_conduite_en:
         locale: '@language_en'
         post: '@project_auto_ecole_la_destrousse_conduite'
@@ -171,6 +172,7 @@ App\Entity\PostContent:
         locale: '@language_en'
         post: '@project_auto_prestige_91'
         external_url: "https://autosprestige91.wimtec.solutions/"
+        is_enabled: true
         image: "@media_project_auto_prestige_91"
         title: "Auto Prestige"
     project_content_boldnect_en:

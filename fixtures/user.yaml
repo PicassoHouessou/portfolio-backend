@@ -3,7 +3,7 @@ App\Entity\User:
         username: 'picassohouessou'
         firstName: "Picasso"
         lastName: "Houessou-Dossou"
-        birthdate: <dateTime('1998-04-04')>
+        birthdate: <(new \DateTime('1998-04-04'))>
         email: 'houessoupicasso@yahoo.fr'
         address: "62137 Coulogne, france"
         website: "https://picassohouessou.com"

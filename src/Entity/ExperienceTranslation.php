@@ -31,18 +31,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ["groups" => ["experience_translation:write"]],
 )]
 #[ApiResource(operations: [
-    new GetCollection(uriTemplate: '/experiences/{experienceId}/experiences',
+    new GetCollection(uriTemplate: '/experiences/{experienceId}/experience_translations',
         uriVariables: [
             'experienceId' => new Link(fromClass: Experience::class, toProperty: 'experience'),
         ],
     ),
-    new Post(uriTemplate: '/experiences/{experienceId}/experiences',
+    new Post(uriTemplate: '/experiences/{experienceId}/experience_translations',
         uriVariables: [
             'experienceId' => new Link(fromClass: Experience::class, toProperty: 'experience'),
         ],
-        itemUriTemplate: '/experiences/{experienceId}/experiences/{id}'
+        itemUriTemplate: '/experiences/{experienceId}/experience_translations/{id}'
     ),
-    new Get(uriTemplate: '/experiences/{experienceId}/experiences/{id}',
+    new Get(uriTemplate: '/experiences/{experienceId}/experience_translations/{id}',
         uriVariables: [
             'experienceId' => new Link(fromClass: Experience::class, toProperty: 'experience'),
             'id' => new Link(fromClass: ExperienceTranslation::class),

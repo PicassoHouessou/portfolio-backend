@@ -34,11 +34,11 @@ class Locale
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["language:read", 'user_translation:read', "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read"])]
+    #[Groups(["language:read", 'user_translation:read', "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read", "category:read"])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 5)]
-    #[Groups(["language:read", "language:write", "user_translation:read", "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read"])]
+    #[Groups(["language:read", "language:write", "user_translation:read", "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read", "category:read"])]
     #[Assert\Sequentially([
         new Assert\NotBlank,
         new Assert\Length(max: 5)
@@ -46,7 +46,7 @@ class Locale
     private string $code;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["language:read", "language:write", "user_translation:read", "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read"])]
+    #[Groups(["language:read", "language:write", "user_translation:read", "user:read", "education:read", "education_translation:read", "experience:read", "experience_translation:read", "post_content:read", "post:read", "category:read"])]
     #[Assert\Length(max: 255)]
     private ?string $description;
 

@@ -54,34 +54,129 @@ class MediaObject
 
     #[ApiProperty(types: ['https://schema.org/contentUrl'])]
     #[Groups(['media_object:read', "post:read"])]
-    public ?string $contentUrl = null;
+    private ?string $contentUrl = null;
 
     #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath", size: "size", mimeType: "mimeType", originalName: "originalName", dimensions: "dimensions")]
     #[Assert\NotNull(groups: ['media_object_create'])]
-    public ?File $file = null;
+    private ?File $file = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(['media_object:read'])]
-    public ?string $filePath = null;
+    private ?string $filePath = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(['media_object:read', "post:read"])]
-    public ?string $size = null;
+    private ?string $size = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(['media_object:read', "post:read"])]
-    public ?string $mimeType = null;
+    private ?string $mimeType = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(['media_object:read', "post:read"])]
-    public ?string $originalName = null;
+    private ?string $originalName = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(['media_object:read', "post:read"])]
-    public ?array $dimensions = null;
+    private ?array $dimensions = null;
+
+    #[Groups(['media_object:read', "post:read"])]
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $file
+     */
+    public function setFile(?File $file = null): void
+    {
+        $this->file = $file;
+
+        if (null !== $file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setOriginalName(?string $originalName): self
+    {
+        $this->originalName = $originalName;
+        return $this;
+    }
+
+    public function getOriginalName(): ?string
+    {
+        return $this->originalName;
+    }
+
+    public function setDimensions(?array $dimensions): self
+    {
+        $this->dimensions = $dimensions;
+        return $this;
+    }
+
+    public function getDimensions(): ?array
+    {
+        return $this->dimensions;
+    }
+
+    public function getContentUrl(): ?string
+    {
+        return $this->contentUrl;
+    }
+
+    public function setContentUrl(?string $contentUrl): self
+    {
+        $this->contentUrl = $contentUrl;
+        return $this;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    public function setFilePath(?string $filePath): self
+    {
+        $this->filePath = $filePath;
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(?string $size): self
+    {
+        $this->size = $size;
+        return $this;
+    }
+
+    public function getMimeType(): ?string
+    {
+        return $this->mimeType;
+    }
+
+    public function setMimeType(?string $mimeType): self
+    {
+        $this->mimeType = $mimeType;
+        return $this;
     }
 }

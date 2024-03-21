@@ -37,13 +37,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'educationId' => new Link(fromClass: Education::class, toProperty: 'education'),
         ],
     ),
-    new Post(uriTemplate: '/educations/{educationId}/educations',
+    new Post(uriTemplate: '/educations/{educationId}/education_translations',
         uriVariables: [
             'educationId' => new Link(fromClass: Education::class, toProperty: 'education'),
         ],
-        itemUriTemplate: '/educations/{educationId}/educations/{id}'
+        itemUriTemplate: '/educations/{educationId}/education_translations/{id}'
     ),
-    new Get(uriTemplate: '/educations/{educationId}/educations/{id}',
+    new Get(uriTemplate: '/educations/{educationId}/education_translations/{id}',
         uriVariables: [
             'educationId' => new Link(fromClass: Education::class, toProperty: 'education'),
             'id' => new Link(fromClass: Education::class),
@@ -145,9 +145,10 @@ class EducationTranslation implements Translatable
         return $this->locale;
     }
 
-    public function setLocale($locale)
+    public function setLocale($locale): self
     {
         $this->locale = $locale;
+        return $this;
     }
 
     public function getEducation(): Education
@@ -155,9 +156,10 @@ class EducationTranslation implements Translatable
         return $this->education;
     }
 
-    public function setEducation(Education $education): void
+    public function setEducation(Education $education): self
     {
         $this->education = $education;
+        return $this;
     }
 
 }

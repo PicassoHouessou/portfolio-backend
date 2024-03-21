@@ -8,12 +8,17 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(fields: ["name"])]
+#[UniqueEntity(fields: ["slug"])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
     normalizationContext: ["groups" => ["category:read"]],
@@ -82,6 +87,15 @@ class Category
     #[Groups(["category:read", "category:write"])]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: CategoryTranslation::class)]
+    #[Groups(["category:read", "post:read"])]
+    private Collection $translations;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -124,26 +138,54 @@ class Category
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(CategoryTranslation $language): static
+    {
+        if (!$this->translations->contains($language)) {
+            $this->translations->add($language);
+            $language->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(CategoryTranslation $language): static
+    {
+        if ($this->translations->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getCategory() === $this) {
+                $language->setCategory(null);
+            }
+        }
 
         return $this;
     }

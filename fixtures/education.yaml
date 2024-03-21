@@ -1,16 +1,22 @@
 App\Entity\Education:
     education_eneam:
-        start_at: <dateTime('2018-06-01')>
-        end_at: <dateTime('2019-07-31')>
+        start_at: <(new \DateTime('2018-06-01'))>
+        end_at: <(new \DateTime('2019-07-31'))>
         user: '@user_picasso'
     education_bac:
-        start_at: <dateTime('2018-10-01')>
-        end_at: <dateTime('2019-01-31')>
+        start_at: <(new \dateTime('2018-10-01'))>
+        end_at: <(new \DateTime('2019-01-31'))>
         location: "Parakou, Benin"
         user: '@user_picasso'
+    education_umef:
+        start_at: <(new \DateTime('2021-12-01'))>
+        end_at: <(new \DateTime('2022-12-31'))>
+        description: ""
+        location: "Geneva, Switzerland"
+        user: '@user_picasso'
     education_eilco:
-        start_at: <dateTime('2023-08-03')>
-        end_at: <dateTime('2025-11-31')>
+        start_at: <(new \DateTime('2023-08-03'))>
+        end_at: <(new \DateTime('2025-11-31'))>
         description: ""
         location: "62100 Coulogne, France"
         user: '@user_picasso'
@@ -39,7 +45,19 @@ App\Entity\EducationTranslation:
         degree: "BACCALAURÉAT Afrique francophone (Équivalent 2015 - 2016 Diplôme du collège)"
         school: "Collège d'Enseignement Général Albarika"
         location: "Parakou, Bénin"
-    education_eilco_translation_3_en:
+    education_umef_translation_en:
+        locale: '@language_en'
+        education: '@education_eilco'
+        degree: "Master Executive Master in Leadership"
+        school: "SWISS UMEF University of Applied Sciences Institute"
+        location: "Geneva, Switzerland"
+    education_umef_translation_fr:
+        locale: '@language_fr'
+        education: '@education_eilco'
+        degree: "Master Excécutif en Leadership"
+        school: "SWISS UMEF University of Applied Sciences Institute"
+        location: "Génève, Suisse"
+    education_eilco_translation_en:
         locale: '@language_en'
         education: '@education_eilco'
         degree: "Computer Engineering"

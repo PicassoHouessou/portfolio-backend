@@ -88,10 +88,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
+    #[Assert\Length(max: 250)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
+    #[Assert\Length(max: 250)]
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -129,12 +131,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $educations;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["user:read"])]
     private ?string $website = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["user:read"])]
     private ?string $github = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["user:read"])]
     private ?string $linkedin = null;
 
     public function __construct()

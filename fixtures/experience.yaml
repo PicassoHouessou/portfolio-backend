@@ -1,46 +1,46 @@
 App\Entity\Experience:
     experience_jeunesse_institut:
         company: "JEUNESSE INSTITUT"
-        start_at: <dateTime('2020-06-01')>
-        end_at: <dateTime('2020-10-31')>
+        start_at: <(new \DateTime('2020-06-01'))>
+        end_at: <(new \DateTime('2020-10-31'))>
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_hgtech:
         company: "HG TECH"
-        start_at: <dateTime('2018-10-01')>
-        end_at: <dateTime('2019-01-31')>
+        start_at: <(new \DateTime('2018-10-01'))>
+        end_at: <(new \DateTime('2019-01-31'))>
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_jscom:
         company: "JSCOM"
-        start_at: <dateTime('2019-11-01')>
-        end_at: <dateTime('2020-03-31')>
+        start_at: <(new \DateTime('2019-11-01'))>
+        end_at: <(new \DateTime('2020-03-31'))>
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_club_informatique:
         company: "CLUB INFORMATIQUE POUR TOUS"
-        start_at: <dateTime('2020-06-01')>
-        end_at: <dateTime('2020-10-31')>
+        start_at: <(new \DateTime('2020-06-01'))>
+        end_at: <(new \DateTime('2020-10-31'))>
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_wimtec:
         company: "WIMTEC"
-        start_at: <dateTime('2020-12-01')>
-        end_at: <dateTime('2021-12-31')>
+        start_at: <(new \DateTime('2020-12-01'))>
+        end_at: <(new \DateTime('2021-12-31'))>
         description: "Redesign of more than 300 websites. Create e-learning platforms (social networks, WordPress). Organize and distribute tasks"
         location: "Cotonou, Benin"
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_kritek:
         company: "Kritek"
-        start_at: <dateTime('2022-04-01')>
+        start_at: <(new \DateTime('2022-04-01'))>
         description: "Develop modules (packages) used in several projects. Development of a cab review application with React, Symfony and API Platform. Creation of a CMS with React, Symfony and API Platform. Supervise the tasks assigned to each developer"
         location_type: '@location_type_remote'
         user: '@user_picasso'
     experience_fasfox:
         company: "Fasfox"
-        start_at: <dateTime('2023-04-01')>
-        end_at: <dateTime('2023-07-30')>
+        start_at: <(new \DateTime('2023-04-01'))>
+        end_at: <(new \DateTime('2023-07-30'))>
         location_type: '@location_type_remote'
         user: '@user_picasso'
 App\Entity\ExperienceTranslation:

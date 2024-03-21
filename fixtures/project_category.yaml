@@ -32,3 +32,133 @@ App\Entity\Category:
     project_category_investment:
         name: "Investment"
 
+App\Entity\CategoryTranslation:
+    project_category_decoration_translation_en:
+        name: "Decoration"
+        category: "@project_category_decoration"
+        locale: "@language_en"
+    project_category_decoration_translation_fr:
+        name: "Décoration"
+        category: "@project_category_decoration"
+        locale: "@language_fr"
+    project_category_wine_translation_en:
+        name: "wine"
+        category: "@project_category_wine"
+        locale: "@language_en"
+    project_category_wine_translation_fr:
+        name: "Vin"
+        category: "@project_category_wine"
+        locale: "@language_fr"
+    project_category_training_translation_en:
+        name: "Training"
+        category: "@project_category_training"
+        locale: "@language_fr"
+    project_category_training_translation_fr:
+        name: "Formation"
+        category: "@project_category_training"
+        locale: "@language_fr"
+    project_category_building_translation_en:
+        name: "Building"
+        category: "@project_category_building"
+        locale: "@language_en"
+    project_category_building_translation_fr:
+        name: "Construction"
+        category: "@project_category_building"
+        locale: "@language_fr"
+    project_category_real_estate_translation_en:
+        name: "Real estate"
+        category: "@project_category_real_estate"
+        locale: "@language_en"
+    project_category_real_estate_translation_fr:
+        name: "Immobilier"
+        category: "@project_category_real_estate"
+        locale: "@language_fr"
+    project_category_auto_translation_en:
+        name: "Auto"
+        category: "@project_category_auto"
+        locale: "@language_en"
+    project_category_auto_translation_fr:
+        name: "Auto"
+        category: "@project_category_auto"
+        locale: "@language_fr"
+    project_category_garden_translation_en:
+        name: "Garden"
+        category: "@project_category_garden"
+        locale: "@language_en"
+    project_category_garden_translation_fr:
+        name: "Jardin"
+        category: "@project_category_garden"
+        locale: "@language_fr"
+    project_category_coworking_translation_en:
+        name: "Coworking"
+        category: "@project_category_coworking"
+        locale: "@language_en"
+    project_category_coworking_translation_fr:
+        name: "Coworking"
+        category: "@project_category_coworking"
+        locale: "@language_fr"
+    project_category_music_translation_en:
+        name: "Music"
+        category: "@project_category_music"
+        locale: "@language_en"
+    project_category_music_translation_fr:
+        name: "Musique"
+        category: "@project_category_music"
+        locale: "@language_fr"
+    project_category_tourism_translation_en:
+        name: "Tourism"
+        category: "@project_category_tourism"
+        locale: "@language_en"
+    project_category_tourism_translation_fr:
+        name: "Tourisme"
+        category: "@project_category_tourism"
+        locale: "@language_fr"
+    project_category_vineyard_translation_en:
+        name: "Vineyard"
+        category: "@project_category_vineyard"
+        locale: "@language_en"
+    project_category_vineyard_translation_fr:
+        name: "Vignoble"
+        category: "@project_category_vineyard"
+        locale: "@language_fr"
+    project_category_school_translation_en:
+        name: "School"
+        category: "@project_category_school"
+        locale: "@language_fr"
+    project_category_school_translation_fr:
+        name: "Ecole"
+        category: "@project_category_school"
+        locale: "@language_fr"
+    project_category_dance_school_translation_en:
+        name: "Dance school"
+        category: "@project_category_dance_school"
+        locale: "@language_en"
+    project_category_dance_school_translation_fr:
+        name: "Ecole de danse"
+        category: "@project_category_dance_school"
+        locale: "@language_fr"
+    project_category_driving_school_translation_en:
+        name: "Driving school"
+        category: "@project_category_driving_school"
+        locale: "@language_en"
+    project_category_driving_school_translation_fr:
+        name: "Auto Ecole"
+        category: "@project_category_driving_school"
+        locale: "@language_fr"
+    project_category_artist_translation_en:
+        name: "Artist"
+        category: "@project_category_artist"
+        locale: "@language_en"
+    project_category_artist_translation_fr:
+        name: "Artiste"
+        category: "@project_category_artist"
+        locale: "@language_fr"
+    project_category_investment_translation_en:
+        name: "Investment"
+        category: "@project_category_investment"
+        locale: "@language_en"
+    project_category_investment_translation_fr:
+        name: "Investissement"
+        category: "@project_category_investment"
+        locale: "@language_fr"
+
