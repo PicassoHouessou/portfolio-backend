@@ -4,8 +4,8 @@ App\Entity\Education:
         end_at: <(new \DateTime('2019-07-31'))>
         user: '@user_picasso'
     education_bac:
-        start_at: <(new \dateTime('2018-10-01'))>
-        end_at: <(new \DateTime('2019-01-31'))>
+        start_at: <(new \dateTime('2015-10-01'))>
+        end_at: <(new \DateTime('2016-07-30'))>
         location: "Parakou, Benin"
         user: '@user_picasso'
     education_umef:
@@ -47,13 +47,13 @@ App\Entity\EducationTranslation:
         location: "Parakou, Bénin"
     education_umef_translation_en:
         locale: '@language_en'
-        education: '@education_eilco'
+        education: '@education_umef'
         degree: "Master Executive Master in Leadership"
         school: "SWISS UMEF University of Applied Sciences Institute"
         location: "Geneva, Switzerland"
     education_umef_translation_fr:
         locale: '@language_fr'
-        education: '@education_eilco'
+        education: '@education_umef'
         degree: "Master Excécutif en Leadership"
         school: "SWISS UMEF University of Applied Sciences Institute"
         location: "Génève, Suisse"
