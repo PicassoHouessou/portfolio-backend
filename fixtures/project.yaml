@@ -178,7 +178,7 @@ App\Entity\PostContent:
     project_content_boldnect_en:
         locale: '@language_en'
         post: '@project_boldnect'
-        external_url: "https://boldnect.com"
+        external_url: "https://boldnect.picassohouessou.com"
         image: "@media_project_boldnect"
         title: "Boldnect"
     project_content_csh_coworking_en:
