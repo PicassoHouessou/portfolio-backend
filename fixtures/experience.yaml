@@ -1,0 +1,149 @@
+App\Entity\Experience:
+    experience_jeunesse_institut:
+        company: "JEUNESSE INSTITUT"
+        start_at: <(new \DateTime('2020-06-01'))>
+        end_at: <(new \DateTime('2020-10-31'))>
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_hgtech:
+        company: "HG TECH"
+        start_at: <(new \DateTime('2018-10-01'))>
+        end_at: <(new \DateTime('2019-01-31'))>
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_jscom:
+        company: "JSCOM"
+        start_at: <(new \DateTime('2019-11-01'))>
+        end_at: <(new \DateTime('2020-03-31'))>
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_club_informatique:
+        company: "CLUB INFORMATIQUE POUR TOUS"
+        start_at: <(new \DateTime('2020-06-01'))>
+        end_at: <(new \DateTime('2020-10-31'))>
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_wimtec:
+        company: "WIMTEC"
+        start_at: <(new \DateTime('2020-12-01'))>
+        end_at: <(new \DateTime('2021-12-31'))>
+        description: "Redesign of more than 300 websites. Create e-learning platforms (social networks, WordPress). Organize and distribute tasks"
+        location: "Cotonou, Benin"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_kritek:
+        company: "Kritek"
+        start_at: <(new \DateTime('2022-04-01'))>
+        description: "Develop modules (packages) used in several projects. Development of a cab review application with React, Symfony and API Platform. Creation of a CMS with React, Symfony and API Platform. Supervise the tasks assigned to each developer"
+        location_type: '@location_type_remote'
+        user: '@user_picasso'
+    experience_fasfox:
+        company: "Fasfox"
+        start_at: <(new \DateTime('2023-04-01'))>
+        end_at: <(new \DateTime('2023-07-30'))>
+        location_type: '@location_type_remote'
+        user: '@user_picasso'
+App\Entity\ExperienceTranslation:
+    experience_jeunesse_institut_translation_en:
+        experience: '@experience_jeunesse_institut'
+        locale: '@language_en'
+        title: "Former"
+        description: "Provide general computer and office automation courses. Teach web development with WordPress"
+        location: "Cotonou, Benin"
+    experience_jeunesse_institut_translation_fr:
+        experience: '@experience_jeunesse_institut'
+        locale: '@language_fr'
+        title: "Former"
+        description: "Dispenser les cours d’informatique générale et de bureautique. Enseigner le développement web avec WordPress"
+        location: "Cotonou, Benin"
+    experience_hgtech_translation_en:
+        experience: '@experience_hgtech'
+        locale: '@language_en'
+        title: "Internship"
+        description: "Maintenance and technical assistance. Administration under Windows Server. Website development"
+        location: "Cotonou, Benin"
+    experience_hgtech_translation_fr:
+        experience: '@experience_hgtech'
+        locale: '@language_fr'
+        title: "Stage"
+        description: "Maintenance et assistance technique. Administration sous Windows Server. Développement de site Web en PHP et avec WordPress"
+        location: "Cotonou, Bénin"
+        location_type: '@location_type_on_site'
+    experience_jscom_translation_en:
+        experience: '@experience_jscom'
+        locale: '@language_en'
+        title: "Internship"
+        description: "Deployment of Pozépa (mail management application) and training workshop on its use. Drafting of final thesis for bachelor's degree completion"
+        location: "Cotonou, Benin"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_jscom_translation_fr:
+        experience: '@experience_jscom'
+        locale: '@language_fr'
+        title: "Stage"
+        description: "Déploiement de Pozépa (application de gestion de courriers) et atelier de formation sur son utilisation. Préparation et rédaction de mémoire de fin d’études pour l’obtention de la licence"
+        location: "Cotonou, Bénin"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_club_informatique_translation_en:
+        experience: '@experience_club_informatique'
+        locale: '@language_en'
+        title: "Former"
+        description: "Teach general computing, office automation (Word, Excel, PowerPoint) and web design"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_club_informatique_translation_fr:
+        experience: '@experience_club_informatique'
+        locale: '@language_fr'
+        title: "Formateur"
+        description: "Teach general computing, office automation (Word, Excel, PowerPoint) and web design"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_wimtec_translation_en:
+        experience: '@experience_wimtec'
+        locale: '@language_en'
+        title: "Web Developer"
+        description: "Redesign of more than 300 websites. Create e-learning platforms (social networks, WordPress). Organize and distribute tasks"
+        location: "Cotonou, Benin"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_wimtec_translation_fr:
+        experience: '@experience_wimtec'
+        locale: '@language_fr'
+        title: "Développeur Web"
+        description: "Refonte de plus de 300 sites web. Créer des plateformes e-learning (réseaux sociaux, WordPress). Organiser et répartir les tâches"
+        location: "Cotonou, Bénin"
+        location_type: '@location_type_on_site'
+        user: '@user_picasso'
+    experience_kritek_translation_en:
+        experience: '@experience_kritek'
+        locale: '@language_en'
+        title: "Full Stack Web Developer"
+        description: "Develop modules (packages) used in several projects. Development of a cab review application with React, Symfony and API Platform. Creation of a CMS with React, Symfony and API Platform. Supervise the tasks assigned to each developer"
+        location: "Cotonou, Benin"
+        location_type: '@location_type_remote'
+        user: '@user_picasso'
+    experience_kritek_translation_fr:
+        experience: '@experience_kritek'
+        locale: '@language_fr'
+        title: "Développeur Web Full Stack"
+        description: "Développer des modules (packages) utilisés dans plusieurs projets. Réalisation d’une application de critique des taxis avec React, Symfony et API Platform. Création d’un CMS avec React, Symfony et API Platform. Superviser les tâches affectées à chaque développeur"
+        location: "République Tchèque"
+        location_type: '@location_type_remote'
+        user: '@user_picasso'
+    experience_fasfox_translation_en:
+        experience: '@experience_fasfox'
+        locale: '@language_en'
+        title: "Frontend Web Developer"
+        description: "Concrete Dispatch: Integration of new features for the optimization of concrete and material management across all construction sites. Staff Dispatch: Development and addition of modules for advanced personnel management on construction sites"
+        location: "Cotonou, Benin"
+        location_type: '@location_type_remote'
+        user: '@user_picasso'
+    experience_fasfox_translation_fr:
+        experience: '@experience_fasfox'
+        locale: '@language_fr'
+        title: "Développeur Frontend"
+        description: "Concrete Dispatch : Intégration de nouvelles fonctionnalités pour l'optimisation de la gestion de béton et matériaux sur l'ensemble des chantiers. Staff Dispatch : Développement et ajout de modules pour une gestion avancée du personnel sur les chantiers"
+        location: "Cotonou, Bénin"
+        location_type: '@location_type_remote'
+        user: '@user_picasso'

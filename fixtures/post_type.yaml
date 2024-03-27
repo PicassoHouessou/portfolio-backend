@@ -1,0 +1,5 @@
+App\Entity\PostType:
+    post_project:
+        name: "project"
+    post_post:
+        name: "post"

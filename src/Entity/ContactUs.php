@@ -2,105 +2,83 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use App\Repository\ContactUsRepository;
+use App\State\ContactUsPostProcessor;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ContactUsRepository;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 
-use Gedmo\Mapping\Annotation as Gedmo;
+#[ApiResource(
+    operations: [
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Post(processor: ContactUsPostProcessor::class),
+    ],
+    normalizationContext: ["groups" => ["contact_us:read"]],
+    denormalizationContext: ["groups" => ["contact_us:write"]]
 
-/**
- * @ApiResource(
- *     collectionOperations={
- *          "post"={
- *
- *
- * },
- *          "get"={}
- *     },
- *     itemOperations={
- *          "get",
- *          "put",
- *          "delete"
- *     },
- *
- *      normalizationContext={"groups"={"contact_us:read"}},
- *      denormalizationContext={"groups"={"contact_us:write"}},
- *
- *     shortName="contact_us",
- *      attributes={
- *              "pagination_items_per_page" = 10
- * }
- * )
- * @ApiFilter(SearchFilter::class, properties={"subject" : "partial", "fullName": "partial" })
- *
- * @ORM\Entity(repositoryClass=ContactUsRepository::class)
- */
+)]
+#[ApiFilter(SearchFilter::class, properties: ["subject", "partial", "fullName", "partial"])]
+#[ORM\Entity(repositoryClass: ContactUsRepository::class)]
 class ContactUs
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=200)
-     * @Groups({"contact_us:read", "contact_us:write"})
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      max=200
-     * )
-     */
+    #[ORM\Column(type: "string", length: 200)]
+    #[Groups(["contact_us:read", "contact_us:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 200
+    )]
     private $fullName;
 
-    /**
-     * @ORM\Column(type="string", length=200)
-     * @Groups({"contact_us:read", "contact_us:write"})
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
+    #[ORM\Column(type: "string", length: 200)]
+    #[Groups(["contact_us:read", "contact_us:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Email()]
     private $email;
 
-    /**
-     * @ORM\Column(type="string", length=200)
-     * @Groups({"contact_us:read", "contact_us:write"})
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      max=200
-     * )
-     */
+    #[ORM\Column(type: "string", length: 200)]
+    #[Groups(["contact_us:read", "contact_us:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 200
+    )]
     private $subject;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Groups({"contact_us:read", "contact_us:write"})
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     min=20,
-     *      max=5000
-     * )
-     */
+    #[ORM\Column(type: "text")]
+    #[Groups(["contact_us:read", "contact_us:write"])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min: 5,
+        max: 5000
+    )]
     private $message;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     * @Groups({"contact_us:read"})
-     */
+    #[Gedmo\Timestampable(on: "create")]
+    #[ORM\Column(type: "datetime")]
+    #[Groups(["contact_us:read"])]
     private $createdAt;
 
 
     /*
      * Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3
-     * Groups({"contact_us:write"})
-     * Assert\NotBlank()
+     * Groups(["contact_us:write"])]
+     * Assert\NotBlank()]
      *
     public $recaptcha;
     */
@@ -183,5 +161,4 @@ class ContactUs
             return $this;
         }
         */
-
 }

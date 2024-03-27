@@ -20,16 +20,16 @@ class PostFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $post = new Post();
-        $post->setAuthor()
-            ->addCategory()
-            ->setCreatedAt()
-            ->setContent()
-            ->setTitle()
-            ->setSlug($this->slugify->slugify($post->getTitle()))
-            ->setIsActivated(true);
-        $manager->persist($post);
-
-        $manager->flush();
+//        $post = new Post();
+//        $post->setAuthor()
+//            ->addCategory()
+//            ->setCreatedAt()
+//            ->setContent()
+//            ->setTitle()
+//            ->setSlug($this->slugify->slugify($post->getTitle()))
+//            ->setIsActivated(true);
+//        $manager->persist($post);
+//
+//        $manager->flush();
     }
 }

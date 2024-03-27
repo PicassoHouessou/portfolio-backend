@@ -5,18 +5,24 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     myEmail: "picasso@picassohouessou.com"
-    no-reply_email: 'noreply@picassohouessou.com'
-    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
-
+    no-reply_email: "noreply@picassohouessou.com"
+    google_recaptcha_site_key: "%env(GOOGLE_RECAPTCHA_SITE_KEY)%"
+    yahoo_email: "%env(YAHOO_EMAIL)%"
+    locale: 'en'
+    app_locales:
+        - en
+        - fr
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $noReplyEmail: '%no-reply_email%'
+            $noReplyEmail: "%no-reply_email%"
             $projectDirectory: "%kernel.project_dir%"
-            $myEmail: '%myEmail%'
+            $myEmail: "%myEmail%"
+            $locales: '%app_locales%'
+            $defaultLocale: '%locale%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -27,12 +33,16 @@ services:
             - "../src/Entity/"
             - "../src/Kernel.php"
             - "../src/Tests/"
-    # ...
-    App\DataPersister\ContactUsPostDataPersister:
-        decorates: "api_platform.doctrine.orm.data_persister"
-        # Uncomment only if autoconfiguration is disabled
-        #arguments: ['@App\DataPersister\ContactUsPostDataPersister.inner']
-        #tags: ["api_platform.data_persister"]
+    # ..
+    App\State\ContactUsPostProcessor:
+        arguments:
+            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+            $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
+            $mailer: '@mailer'
+        tags: [ 'api_platform.state_processor' ]
+
+    #App\Serializer\MediaObjectNormalizer:
+    #    tags: [ 'serializer.normalizer' ]
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -42,3 +52,63 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\DataFixtures\Processor\UserProcessor: ~
+    #    Gedmo\Mapping\Driver\AttributeReader: ~
+    #    Gedmo\Mapping\Driver\AttributeAnnotationReader: ~
+    #    App\DataFixtures\Processor\TranslationProcessor:
+    #        $reader: '@Gedmo\Mapping\Driver\AttributeAnnotationReader'
+    App\DataFixtures\Provider\MediaProvider:
+        tags: [ { name: nelmio_alice.faker.provider } ]
+
+    # Doctrine Extension listeners to handle behaviors
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    Gedmo\Loggable\LoggableListener:
+        tags:
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    Gedmo\Blameable\BlameableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    Gedmo\IpTraceable\IpTraceableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]

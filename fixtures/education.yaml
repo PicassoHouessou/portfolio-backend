@@ -1,0 +1,73 @@
+App\Entity\Education:
+    education_eneam:
+        start_at: <(new \DateTime('2018-06-01'))>
+        end_at: <(new \DateTime('2019-07-31'))>
+        user: '@user_picasso'
+    education_bac:
+        start_at: <(new \dateTime('2015-10-01'))>
+        end_at: <(new \DateTime('2016-07-30'))>
+        location: "Parakou, Benin"
+        user: '@user_picasso'
+    education_umef:
+        start_at: <(new \DateTime('2021-12-01'))>
+        end_at: <(new \DateTime('2022-12-31'))>
+        description: ""
+        location: "Geneva, Switzerland"
+        user: '@user_picasso'
+    education_eilco:
+        start_at: <(new \DateTime('2023-08-03'))>
+        end_at: <(new \DateTime('2025-11-31'))>
+        description: ""
+        location: "62100 Coulogne, France"
+        user: '@user_picasso'
+App\Entity\EducationTranslation:
+    education_eneam_translation_en:
+        locale: '@language_en'
+        degree: "Bachelor's degree in Computer Science - option Computer Network Administration"
+        school: "National School of Applied Economics and Management (ENEAM)"
+        location: "Cotonou, Benin"
+        education: '@education_eneam'
+    education_eneam_translation_fr:
+        locale: '@language_fr'
+        education: '@education_eneam'
+        degree: "Licence en Informatique de gestion option administration des Réseaux Informatiques"
+        school: "Ecole Nationale d'Economie Appliquée et de Management (ENEAM)"
+        location: "Cotonou, Bénin"
+    education_bac_translation_en:
+        locale: '@language_en'
+        education: '@education_bac'
+        degree: "BACCALAUREATE French-speaking Africa (College diploma equivalent)"
+        school: "College of General Education of Albarika"
+        location: "Parakou, Benin"
+    education_bac_translation_fr:
+        locale: '@language_fr'
+        education: '@education_bac'
+        degree: "BACCALAURÉAT Afrique francophone (Équivalent 2015 - 2016 Diplôme du collège)"
+        school: "Collège d'Enseignement Général Albarika"
+        location: "Parakou, Bénin"
+    education_umef_translation_en:
+        locale: '@language_en'
+        education: '@education_umef'
+        degree: "Master Executive Master in Leadership"
+        school: "SWISS UMEF University of Applied Sciences Institute"
+        location: "Geneva, Switzerland"
+    education_umef_translation_fr:
+        locale: '@language_fr'
+        education: '@education_umef'
+        degree: "Master Excécutif en Leadership"
+        school: "SWISS UMEF University of Applied Sciences Institute"
+        location: "Génève, Suisse"
+    education_eilco_translation_en:
+        locale: '@language_en'
+        education: '@education_eilco'
+        degree: "Computer Engineering"
+        school: "Université du Littoral de la Côte Opale in Calais."
+        location: "62100 Coulogne, France"
+    education_eilco_translation_fr:
+        locale: '@language_fr'
+        education: '@education_eilco'
+        degree: "Ingénieur en Informatique"
+        school: "Université du Littoral de la Côte Opale"
+        location: "62100 Coulogne, France"
+
+

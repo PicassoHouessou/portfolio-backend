@@ -45,7 +45,7 @@ yarn-error.log
 ###< IDE files
 
 ###> For upload files
-#/public/uploads
+/public/uploads
 ###< For upload files
 
 package-lock.json
