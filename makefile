@@ -234,6 +234,10 @@ php-fixtures: ## Load fixtures.
 	$(PHP_CONSOLE) doctrine:fixtures:load --no-interaction
 .PHONY: php-fixtures
 
+php-hautelook-fixtures: ## Load Alice fixtures.
+	$(PHP_CONSOLE) hautelook:fixtures:load --append
+.PHONY: sf-fixtures
+
 php-me: ## Make symfony entity
 	$(PHP_CONSOLE) make:entity
 .PHONY: php-me
@@ -439,6 +443,7 @@ php-data: ## Generate fixtures for the project.
 	$(MAKE) php-dc
 	$(MAKE) php-su
 	$(MAKE) php-fixtures
+	$(MAKE) php-hautelook-fixtures
 .PHONY: php-data
 
 checkout: ## Pull all modules for the specified branch. Eg: make checkout dev_VER_1.1
