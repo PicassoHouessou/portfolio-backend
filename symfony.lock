@@ -174,12 +174,6 @@
             "fixtures/.gitignore"
         ]
     },
-    "ircmaxell/random-lib": {
-        "version": "v1.2.0"
-    },
-    "ircmaxell/security-lib": {
-        "version": "v1.1.0"
-    },
     "jetbrains/phpstorm-stubs": {
         "version": "v2019.3"
     },
@@ -683,19 +677,6 @@
             "version": "1.0",
             "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
         }
-    },
-    "tilleuls/forgot-password-bundle": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "48ab9b5581997a68245b79ac21e355152e29fcde"
-        },
-        "files": [
-            "./config/packages/coop_tilleuls_forgot_password.yaml",
-            "./config/routes/coop_tilleuls_forgot_password.yaml"
-        ]
     },
     "twig/extra-bundle": {
         "version": "v3.3.4"
