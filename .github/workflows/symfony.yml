@@ -10,14 +10,13 @@ on:
         branches: [ "master", "dev" ]
     pull_request:
         branches: [ "master", "dev" ]
-
+env:
+    MYSQL_USER_PASSWORD: ${{ secrets.MYSQL_USER_PASSWORD }}
+    MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 permissions:
     contents: read
 
 jobs:
-    env:
-        MYSQL_USER_PASSWORD: ${{ secrets.MYSQL_USER_PASSWORD }}
-        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
     symfony-tests:
         runs-on: ubuntu-latest
         steps:
