@@ -14,7 +14,7 @@ class MediaObjectTest extends ApiTestCase
 
     public function testCreateAMediaObject(): void
     {
-        $file = new UploadedFile('fixtures/files/image.png', 'image.png');
+        $file = new UploadedFile('fixtures/files/image.jpg', 'image.jpg');
         $client = self::createClient();
 
         $client->request('POST', '/media_objects', [
