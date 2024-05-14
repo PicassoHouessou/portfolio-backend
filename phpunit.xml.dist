@@ -2,10 +2,11 @@
 
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
+         convertDeprecationsToExceptions="false"
 >
     <php>
         <ini name="display_errors" value="1"/>
@@ -22,7 +23,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
         </include>
@@ -33,5 +34,11 @@
     </listeners>
 
     <extensions>
+        <!-- it begins a database transaction before every testcase and rolls it back after
+             the test finished, so tests can manipulate the database without affecting other tests -->
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+
+        <!-- Run `composer require symfony/panther` before enabling this extension -->
+        <!-- <extension class="Symfony\Component\Panther\ServerExtension" /> -->
     </extensions>
 </phpunit>

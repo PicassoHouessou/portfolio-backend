@@ -77,6 +77,10 @@ class PostContent
     #[Groups(["post_content:read", "post_content:write", "post:read"])]
     private ?string $externalUrl = null;
 
+    #[ORM\Column(type: "boolean", nullable: true)]
+    #[Groups(["post_content:read", "post_content:write", "post:read"])]
+    private ?bool $isEnabled = null;
+
     #[ORM\ManyToOne(targetEntity: MediaObject::class)]
     #[ORM\JoinColumn(nullable: true)]
     #[ApiProperty(types: ['https://schema.org/image'])]
