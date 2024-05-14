@@ -10,9 +10,7 @@ on:
         branches: [ "master", "dev" ]
     pull_request:
         branches: [ "master", "dev" ]
-env:
-    MYSQL_USER_PASSWORD: ${{ secrets.MYSQL_USER_PASSWORD }}
-    MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+
 permissions:
     contents: read
 
@@ -38,7 +36,7 @@ jobs:
                     restore-keys: |
                         ${{ runner.os }}-php-
             -   name: Install Dependencies
-                run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+                run: composer update -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
             -   uses: mirromutth/mysql-action@v1.1
                 with:
                     host port: 3306 # Optional, default value is 3306. The port of host
@@ -47,14 +45,14 @@ jobs:
                     collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
                     mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
                     mysql database: 'picassocv' # Optional, default value is "test". The specified database which will be create
-                    mysql root password: ${{ env.MYSQL_ROOT_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
-                    mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-                    mysql password: ${{ env.MYSQL_USER_PASSWORD }} # Required if "mysql user" exists. The password for the "mysql user"
+                    mysql root password: root # Required if "mysql user" is empty, default is empty. The root superuser password
+                    mysql user: 'picassocv' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+                    mysql password: picassocv # Required if "mysql user" exists. The password for the "mysql user"
             -   name: Create Database
                 run: |
                     mkdir -p data
                     touch data/database.sqlite
             -   name: Execute tests (Unit and Feature tests) via PHPUnit
                 env:
-                    DATABASE_URL: mysql://developer:${{ env.MYSQL_USER_PASSWORD }}@127.0.0.1:3306/picassocv
+                    DATABASE_URL: mysql://developer:picassocv@127.0.0.1:3306/picassocv
                 run: vendor/bin/phpunit
