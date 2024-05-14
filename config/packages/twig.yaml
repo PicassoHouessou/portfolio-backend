@@ -1,4 +1,8 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
     globals:
-        APP_URL: 'https://picassohouessou.com'
+        APP_URL: "https://picassohouessou.com"
+    file_name_pattern: "*.twig"
+
+when@test:
+    twig:
+        strict_variables: true
