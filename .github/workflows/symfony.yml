@@ -45,14 +45,14 @@ jobs:
                     collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
                     mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
                     mysql database: 'picassocv' # Optional, default value is "test". The specified database which will be create
-                    mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
+                    mysql root password: ${{ vars.INPUT_MYSQL_ROOT_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
                     mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-                    mysql password: ${{ secrets.MYSQL_USER_PASSWORD }} # Required if "mysql user" exists. The password for the "mysql user"
+                    mysql password: ${{ vars.MYSQL_INPUT_USER_PASSWORD }} # Required if "mysql user" exists. The password for the "mysql user"
             -   name: Create Database
                 run: |
                     mkdir -p data
                     touch data/database.sqlite
             -   name: Execute tests (Unit and Feature tests) via PHPUnit
                 env:
-                    DATABASE_URL: mysql://developer:${{ secrets.MYSQL_USER_PASSWORD }}@127.0.0.1:3306/picassocv
+                    DATABASE_URL: mysql://developer:${{ vars.MYSQL_INPUT_USER_PASSWORD }}@127.0.0.1:3306/picassocv
                 run: vendor/bin/phpunit
