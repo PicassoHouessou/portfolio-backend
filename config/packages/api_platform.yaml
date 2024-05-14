@@ -1,20 +1,20 @@
 api_platform:
     title: "Picasso Houessou API"
     mapping:
-        paths: [ "%kernel.project_dir%/src/Entity" ]
+        paths: ["%kernel.project_dir%/src/Entity"]
     patch_formats:
-        json: [ "application/merge-patch+json" ]
+        json: ["application/merge-patch+json"]
     graphql:
         graphql_playground:
             # Enabled by default with installed webonyx/graphql-php and Twig.
             enabled: false
 
     swagger:
-        versions: [ 3 ]
+        versions: [3]
     docs_formats:
-        jsonld: [ 'application/ld+json' ]
-        html: [ 'text/html' ]
-        jsonopenapi: [ 'application/vnd.openapi+json' ]
+        jsonld: ["application/ld+json"]
+        html: ["text/html"]
+        jsonopenapi: ["application/vnd.openapi+json"]
 
     formats:
         json:
@@ -28,3 +28,11 @@ api_platform:
         pagination_items_per_page: 20 # Default value
         pagination_client_items_per_page: true
         pagination_maximum_items_per_page: 100
+        stateless: true
+        cache_headers:
+            vary: ["Content-Type", "Authorization", "Origin"]
+        extra_properties:
+            standard_put: true
+            rfc_7807_compliant_errors: true
+    keep_legacy_inflector: false
+    use_symfony_listeners: true
