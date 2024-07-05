@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     )]
 #[UniqueEntity(fields: ["slug"])]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'title', 'subtitle', 'externalUrl', 'createdAt', 'updatedAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'subtitle' => 'partial', 'externalUrl' => 'partial', 'createdAt' => 'partial', 'type' => 'exact', 'author' => 'exact', 'type' => 'exact', 'type.name' => 'exact'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'subtitle' => 'partial', 'externalUrl' => 'partial', 'createdAt' => 'partial', 'author' => 'exact', 'type' => 'exact', 'type.name' => 'exact'])]
 #[ApiFilter(BooleanFilter::class, properties: ['isEnabled'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
 #[ORM\Entity(repositoryClass: PostRepository::class)]

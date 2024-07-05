@@ -1,6 +1,9 @@
 # services to handle doctrine extensions
 # import it in config/packages/doctrine_extensions.yaml
 services:
+    # Attribute mapping driver for the Doctrine Extension listeners
+    gedmo.mapping.driver.attribute:
+        class: Gedmo\Mapping\Driver\AttributeReader
     # Doctrine Extension listeners to handle behaviors
     Gedmo\Translatable\TranslatableListener:
         tags:
@@ -10,7 +13,7 @@ services:
             - { name: doctrine.event_listener, event: 'onFlush' }
             - { name: doctrine.event_listener, event: 'loadClassMetadata' }
         calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+            - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
             - [ setDefaultLocale, [ "%locale%" ] ]
             - [ setTranslationFallback, [ false ] ]
 
@@ -21,7 +24,7 @@ services:
             - { name: doctrine.event_listener, event: 'onFlush' }
             - { name: doctrine.event_listener, event: 'loadClassMetadata' }
         calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+            - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
 
     gedmo.listener.sluggable:
         class: Gedmo\Sluggable\SluggableListener
@@ -30,7 +33,7 @@ services:
             - { name: doctrine.event_listener, event: 'onFlush' }
             - { name: doctrine.event_listener, event: 'loadClassMetadata' }
         calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+            - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
 
 
 
