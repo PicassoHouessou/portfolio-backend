@@ -1,0 +1,40 @@
+# services to handle doctrine extensions
+# import it in config/packages/doctrine_extensions.yaml
+services:
+    # Attribute mapping driver for the Doctrine Extension listeners
+    gedmo.mapping.driver.attribute:
+        class: Gedmo\Mapping\Driver\AttributeReader
+    # Doctrine Extension listeners to handle behaviors
+    Gedmo\Translatable\TranslatableListener:
+        tags:
+            - { name: doctrine.event_listener, event: 'postLoad' }
+            - { name: doctrine.event_listener, event: 'postPersist' }
+            - { name: doctrine.event_listener, event: 'preFlush' }
+            - { name: doctrine.event_listener, event: 'onFlush' }
+            - { name: doctrine.event_listener, event: 'loadClassMetadata' }
+        calls:
+            - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
+            - [ setDefaultLocale, [ "%locale%" ] ]
+            - [ setTranslationFallback, [ false ] ]
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_listener, event: 'prePersist' }
+            - { name: doctrine.event_listener, event: 'onFlush' }
+            - { name: doctrine.event_listener, event: 'loadClassMetadata' }
+        calls:
+            - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_listener, event: 'prePersist' }
+            - { name: doctrine.event_listener, event: 'onFlush' }
+            - { name: doctrine.event_listener, event: 'loadClassMetadata' }
+        calls:
+            - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
+
+
+
+

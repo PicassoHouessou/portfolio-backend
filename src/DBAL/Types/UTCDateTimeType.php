@@ -5,17 +5,15 @@ namespace App\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
-/**
- * @deprecated Instead use Kritek\AdminBundle\DBAL\Types\UTCDateTimeType
- */
+
 class UTCDateTimeType extends DateTimeType
 {
     /**
      * @var \DateTimeZone
      */
-    private static $utc;
+    private static \DateTimeZone $utc;
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value instanceof \DateTime) {
             $value->setTimezone(self::getUtc());
@@ -24,7 +22,7 @@ class UTCDateTimeType extends DateTimeType
         return parent::convertToDatabaseValue($value, $platform);
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): \DateTime|\DateTimeInterface|null
     {
         if (null === $value || $value instanceof \DateTime) {
             return $value;
@@ -36,7 +34,7 @@ class UTCDateTimeType extends DateTimeType
             self::getUtc()
         );
 
-        if (! $converted) {
+        if (!$converted) {
             throw ConversionException::conversionFailedFormat(
                 $value,
                 $this->getName(),

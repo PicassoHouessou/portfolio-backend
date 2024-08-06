@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
@@ -18,10 +19,6 @@ class CVTest extends ApiTestCase
         $client->request('POST', '/media_objects', [
             'headers' => ['Content-Type' => 'multipart/form-data'],
             'extra' => [
-                // If you have additional fields in your MediaObject entity, use the parameters.
-                'parameters' => [
-                    'title' => 'My file uploaded',
-                ],
                 'files' => [
                     'file' => $file,
                 ],
@@ -29,8 +26,5 @@ class CVTest extends ApiTestCase
         ]);
         $this->assertResponseIsSuccessful();
         $this->assertMatchesResourceItemJsonSchema(CV::class);
-        $this->assertJsonContains([
-            'title' => 'My file uploaded',
-        ]);
     }
 }

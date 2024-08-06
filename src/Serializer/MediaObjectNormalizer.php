@@ -35,4 +35,11 @@ final class MediaObjectNormalizer implements NormalizerAwareInterface, Normalize
 
         return $data instanceof MediaObject;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            MediaObject::class => false,
+        ];
+    }
 }

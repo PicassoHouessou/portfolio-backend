@@ -8,7 +8,7 @@ parameters:
     no-reply_email: "noreply@picassohouessou.com"
     google_recaptcha_site_key: "%env(GOOGLE_RECAPTCHA_SITE_KEY)%"
     yahoo_email: "%env(YAHOO_EMAIL)%"
-    locale: 'en'
+    locale: "en"
     app_locales:
         - en
         - fr
@@ -21,8 +21,8 @@ services:
             $noReplyEmail: "%no-reply_email%"
             $projectDirectory: "%kernel.project_dir%"
             $myEmail: "%myEmail%"
-            $locales: '%app_locales%'
-            $defaultLocale: '%locale%'
+            $locales: "%app_locales%"
+            $defaultLocale: "%locale%"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -36,10 +36,10 @@ services:
     # ..
     App\State\ContactUsPostProcessor:
         arguments:
-            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
-            $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
-            $mailer: '@mailer'
-        tags: [ 'api_platform.state_processor' ]
+            $persistProcessor: "@api_platform.doctrine.orm.state.persist_processor"
+            $removeProcessor: "@api_platform.doctrine.orm.state.remove_processor"
+            $mailer: "@mailer"
+        tags: [ "api_platform.state_processor" ]
 
     #App\Serializer\MediaObjectNormalizer:
     #    tags: [ 'serializer.normalizer' ]
@@ -59,56 +59,3 @@ services:
     #        $reader: '@Gedmo\Mapping\Driver\AttributeAnnotationReader'
     App\DataFixtures\Provider\MediaProvider:
         tags: [ { name: nelmio_alice.faker.provider } ]
-
-    # Doctrine Extension listeners to handle behaviors
-    gedmo.listener.tree:
-        class: Gedmo\Tree\TreeListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    gedmo.listener.timestampable:
-        class: Gedmo\Timestampable\TimestampableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    gedmo.listener.sluggable:
-        class: Gedmo\Sluggable\SluggableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    gedmo.listener.sortable:
-        class: Gedmo\Sortable\SortableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    gedmo.listener.softdeleteable:
-        class: Gedmo\SoftDeleteable\SoftDeleteableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    Gedmo\Loggable\LoggableListener:
-        tags:
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    Gedmo\Blameable\BlameableListener:
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]
-
-    Gedmo\IpTraceable\IpTraceableListener:
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]

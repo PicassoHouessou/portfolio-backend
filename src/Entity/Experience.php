@@ -81,6 +81,20 @@ class Experience
     #[Groups(["experience:read", "experience:write"])]
     private ?User $user = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["experience:read", "experience:write"])]
+    #[Assert\Length(
+        max: 5000
+    )]
+    private ?string $description = null;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(["experience:read", "experience:write"])]
+    #[Assert\Length(
+        max: 200
+    )]
+    private ?string $location = null;
+
     #[ORM\ManyToOne]
     #[Groups(["experience:read", "experience:write"])]
     private ?LocationType $locationType = null;
@@ -88,6 +102,7 @@ class Experience
     #[ORM\OneToMany(mappedBy: 'experience', targetEntity: ExperienceTranslation::class)]
     #[Groups(["experience:read"])]
     private Collection $translations;
+
 
     public function __construct()
     {

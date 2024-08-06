@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ApiResource(
+    shortName:"contact_use",
     operations: [
         new Get(security: "is_granted('ROLE_ADMIN')"),
         new Delete(security: "is_granted('ROLE_ADMIN')"),
@@ -36,6 +37,7 @@ class ContactUs
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
+    #[Groups(["contact_us:read", "contact_us:write"])]
     private $id;
 
     #[ORM\Column(type: "string", length: 200)]

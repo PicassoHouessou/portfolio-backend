@@ -2,22 +2,21 @@
 
 namespace App\State;
 
-use ApiPlatform\Doctrine\Common\State\PersistProcessor;
-use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
-use ApiPlatform\State\ProcessorInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\MailerInterface;
-use App\Entity\ContactUs;
-use ApiPlatform\Metadata\DeleteOperationInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\ProcessorInterface;
+use App\Entity\ContactUs;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Mailer\MailerInterface;
 
 final class ContactUsPostProcessor implements ProcessorInterface
 {
     public function __construct(
-        private ProcessorInterface $persistProcessor,
-        private ProcessorInterface $removeProcessor,
-        private MailerInterface $mailer,
- private $myEmail, private $noReplyEmail
+        private readonly ProcessorInterface $persistProcessor,
+        private readonly ProcessorInterface          $removeProcessor,
+        private Security $security,
+        private MailerInterface             $mailer,
+ private                                    $myEmail, private $noReplyEmail
     )
     {
 
@@ -29,7 +28,10 @@ final class ContactUsPostProcessor implements ProcessorInterface
     {
 
         $this->sendWelcomeEmail($data);
-        return $data;
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return $data;
+        }
+        return ["success" => true];
     }
 
     public function sendWelcomeEmail(ContactUs $contactUs)

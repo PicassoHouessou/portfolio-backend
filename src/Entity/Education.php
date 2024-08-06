@@ -85,6 +85,20 @@ class Education implements Translatable
     #[Groups(["education:read"])]
     private $translations;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["education:read", "education:write"])]
+    #[Assert\Length(
+        max: 500
+    )]
+    private ?string $description = null;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(["education:read", "education:write"])]
+    #[Assert\Length(
+        max: 200
+    )]
+    private ?string $location = null;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
