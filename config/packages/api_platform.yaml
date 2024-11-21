@@ -1,5 +1,6 @@
 api_platform:
     title: "Picasso Houessou API"
+    version: "1.0"
     mapping:
         paths: ["%kernel.project_dir%/src/Entity"]
     patch_formats:
@@ -34,5 +35,4 @@ api_platform:
         extra_properties:
             standard_put: true
             rfc_7807_compliant_errors: true
-    keep_legacy_inflector: false
-    use_symfony_listeners: true
+        use_symfony_listeners: true

@@ -4,18 +4,18 @@
 namespace App\Serializer;
 
 use App\Entity\CV;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
-final class CVNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+final class CVNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
     private const ALREADY_CALLED = 'CV_NORMALIZER_ALREADY_CALLED';
 
-    public function __construct(private StorageInterface $storage)
+    public function __construct(private readonly StorageInterface $storage)
     {
     }
 
@@ -30,10 +30,13 @@ final class CVNormalizer implements ContextAwareNormalizerInterface, NormalizerA
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        if (isset($context[self::ALREADY_CALLED])) {
-            return false;
-        }
+        return !isset($context[self::ALREADY_CALLED]) && $data instanceof CV;
+    }
 
-        return $data instanceof CV;
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CV::class => false,
+        ];
     }
 }

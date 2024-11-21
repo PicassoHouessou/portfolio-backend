@@ -34,7 +34,7 @@ final class ContactUsPostProcessor implements ProcessorInterface
         return ["success" => true];
     }
 
-    public function sendWelcomeEmail(ContactUs $contactUs)
+    public function sendWelcomeEmail(ContactUs $contactUs): void
     {
         $email = (new TemplatedEmail())
             ->from($this->noReplyEmail)
