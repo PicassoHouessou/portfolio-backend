@@ -5,10 +5,10 @@ api_platform:
         paths: ["%kernel.project_dir%/src/Entity"]
     patch_formats:
         json: ["application/merge-patch+json"]
-    graphql:
-        graphql_playground:
-            # Enabled by default with installed webonyx/graphql-php and Twig.
-            enabled: false
+#    graphql:
+#        graphql_playground:
+#            # Enabled by default with installed webonyx/graphql-php and Twig.
+#            enabled: false
 
     swagger:
         versions: [3]
