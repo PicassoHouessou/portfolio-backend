@@ -43,27 +43,27 @@ class PostType
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["post_type:read", "post_type:write"])]
     #[Assert\NotBlank()]
     #[Assert\Length(min: "10", max: "200")]
-    private $name;
+    private string $name;
 
     #[Gedmo\Slug(fields: ["name"])]
     #[ORM\Column(type: "string", length: 230)]
-    private $slug;
+    private string $slug;
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
     #[Assert\DateTime()]
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt=null;
 
     #[Gedmo\Timestampable()]
     #[ORM\Column(type: "datetime", nullable: true)]
     #[Assert\DateTime()]
-    private $updatedAt;
+    private ?\DateTimeInterface $updatedAt=null;
 
     public function getId(): ?int
     {

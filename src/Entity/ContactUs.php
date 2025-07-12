@@ -38,7 +38,7 @@ class ContactUs
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
     #[Groups(["contact_us:read", "contact_us:write"])]
-    private $id;
+    private ?int $id =null;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["contact_us:read", "contact_us:write"])]
@@ -46,13 +46,13 @@ class ContactUs
     #[Assert\Length(
         max: 200
     )]
-    private $fullName;
+    private string $fullName;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["contact_us:read", "contact_us:write"])]
     #[Assert\NotBlank()]
     #[Assert\Email()]
-    private $email;
+    private string $email;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["contact_us:read", "contact_us:write"])]
@@ -60,7 +60,7 @@ class ContactUs
     #[Assert\Length(
         max: 200
     )]
-    private $subject;
+    private string $subject;
 
     #[ORM\Column(type: "text")]
     #[Groups(["contact_us:read", "contact_us:write"])]
@@ -69,12 +69,12 @@ class ContactUs
         min: 5,
         max: 5000
     )]
-    private $message;
+    private string $message;
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
     #[Groups(["contact_us:read"])]
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt =null;
 
 
     /*

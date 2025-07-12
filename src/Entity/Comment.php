@@ -23,7 +23,7 @@ class Comment
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
     #[Groups(["comment:read", "post:read"])]
-    private $id;
+    private ?int $id=null;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Assert\NotBlank()]
@@ -31,7 +31,7 @@ class Comment
         max: 200
     )]
     #[Groups(["comment:read", "comment:write", "post:read"])]
-    private $fullName;
+    private string $fullName;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Assert\NotBlank()]
@@ -40,7 +40,7 @@ class Comment
     )]
     #[Assert\Email()]
     #[Groups(["comment:read", "comment:write", "post:read"])]
-    private $email;
+    private string $email;
 
     #[ORM\Column(type: "string", length: 200, nullable: true)]
     #[Assert\NotBlank()]
@@ -48,30 +48,30 @@ class Comment
         max: 200
     )]
     #[Groups(["comment:read", "comment:write", "post:read"])]
-    private $website;
+    private string $website;
 
     #[ORM\Column(type: "text")]
     #[Assert\NotBlank()]
     #[Assert\Length(max: 5000)]
     #[Groups(["comment:read", "comment:write", "post:read"])]
-    private $message;
+    private string $message;
 
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt =null;
 
 
     #[Gedmo\Timestampable(on: "update")]
     #[ORM\Column(type: "datetime", nullable: true)]
-    private $updatedAt;
+    private  ?\DateTimeInterface $updatedAt =null;
 
     #[ORM\Column(type: "boolean")]
-    private $isActive;
+    private bool $isActive;
 
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: "comments")]
     #[ORM\JoinColumn(nullable: false)]
-    private $post;
+    private Post $post;
 
     #[ORM\ManyToOne(targetEntity: Comment::class, inversedBy: "replies")]
     private $parent;

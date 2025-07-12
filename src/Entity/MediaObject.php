@@ -8,7 +8,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
-use App\Controller\CreateMediaObjectAction;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -23,7 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         new Get(),
         new GetCollection(),
         new Post(
-            controller: CreateMediaObjectAction::class,
+            inputFormats: ['multipart' => ['multipart/form-data']],
             openapi: new Model\Operation(
                 requestBody: new Model\RequestBody(
                     content: new \ArrayObject([
@@ -42,7 +41,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                 )
             ),
             validationContext: ['groups' => ['Default', 'media_object_create']],
-            deserialize: false
         )
     ],
     normalizationContext: ['groups' => ['media_object:read']]
@@ -58,6 +56,9 @@ class MediaObject
 
     #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath", size: "size", mimeType: "mimeType", originalName: "originalName", dimensions: "dimensions")]
     #[Assert\NotNull(groups: ['media_object_create'])]
+    #[Assert\File(
+        maxSize: '10240k'
+    ,groups: ['media_object_create'])]
     private ?File $file = null;
 
     #[ORM\Column(nullable: true)]
