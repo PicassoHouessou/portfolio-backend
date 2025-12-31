@@ -50,12 +50,14 @@ App\Entity\Post:
         external_url: "https://pics-world.com"
         categories: [ '@project_category_design' ]
         is_enabled: true
+        is_standalone: true
         type: "@post_project"
         author: "@user_picasso"
     project_iot:
         external_url: "https://iot.picassohouessou.com"
         categories: [ '@project_category_iot' ]
         is_enabled: true
+        is_standalone: true
         type: "@post_project"
         author: "@user_picasso"
     project_senegal_invest:
@@ -80,6 +82,7 @@ App\Entity\Post:
         external_url: "https://gmail.picassohouessou.com"
         categories: [ '@project_category_webmail' ]
         is_enabled: true
+        is_standalone: true
         type: "@post_project"
         author: "@user_picasso"
     project_lokaton:
@@ -243,14 +246,14 @@ App\Entity\PostContent:
         post: '@project_alinkka'
         image: "@media_project_alinkka"
         external_url: "https://alinkka.com"
-        title: "Bloggux"
+        title: "Alinkka"
         is_enabled: true
     project_content_alinkka_fr:
         locale: '@language_fr'
         post: '@project_alinkka'
         image: "@media_project_alinkka"
         external_url: "https://alinkka.com"
-        title: "Bloggux"
+        title: "Alinkka"
         is_enabled: true
     project_content_iot_en:
         locale: '@language_en'
