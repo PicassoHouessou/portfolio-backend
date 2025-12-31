@@ -44,35 +44,31 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;
+    private ?int $id =null;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Assert\NotBlank()]
     #[Assert\Length(max: "200")]
     #[Groups(["tag:read", "tag:write"])]
-    private $name;
+    private string $name;
     #[Gedmo\Slug(fields: ["name"])]
     #[ORM\Column(type: "string", length: 230)]
-    private $slug;
+    private ?string $slug =null;
 
     #[ORM\Column(type: "text", nullable: true)]
     #[Assert\Length(max: "5000")]
     #[Groups(["tag:read", "tag:write"])]
-    private $description;
+    private ?string $description = null;
 
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable(on: "create")]
-    #[Assert\NotBlank()]
-    #[Assert\Datetime()]
-    #[Groups(["tag:read", "tag:write"])]
-    private $createdAt;
+    #[Groups(["tag:read"])]
+    private ?\DateTimeInterface  $createdAt=null;
 
     #[ORM\Column(type: "datetime", nullable: true)]
     #[Gedmo\Timestampable()]
-    #[Assert\NotBlank()]
-    #[Assert\Datetime()]
-    #[Groups(["tag:read", "tag:write"])]
-    private $updatedAt;
+    #[Groups(["tag:read"])]
+    private ?\DateTimeInterface $updatedAt =null;
 
     public function getId(): ?int
     {

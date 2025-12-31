@@ -78,6 +78,16 @@ class ExperienceTranslation
     #[Groups(["experience_translation:read", "experience_translation:write", "experience:read"])]
     private Locale $locale;
 
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(["experience_translation:read", "experience_translation:write"])]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(targetEntity: LocationType::class)]
+    #[Groups(["experience_translation:read", "experience_translation:write", "experience:read"])]
+    private ?LocationType $locationType = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -94,19 +104,6 @@ class ExperienceTranslation
 
         return $this;
     }
-
-    public function getCompany(): ?string
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?string $company): static
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
 
     public function getDescription(): ?string
     {

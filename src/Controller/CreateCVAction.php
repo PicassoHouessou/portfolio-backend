@@ -21,7 +21,7 @@ final class CreateCVAction extends AbstractController
         }
 
         $cv = new CV();
-        $cv->setFile ( $uploadedFile);
+        $cv->setFile ($uploadedFile);
         $cv->setLanguage($data["language"]);
 
         return $cv;

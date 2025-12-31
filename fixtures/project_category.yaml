@@ -31,6 +31,18 @@ App\Entity\Category:
         name: "Artist"
     project_category_investment:
         name: "Investment"
+    project_category_blog:
+        name: "Blog"
+    project_category_iot:
+        name: "IoT"
+    project_category_design:
+        name: "Design"
+    project_category_agency:
+        name: "Agency"
+    project_category_webmail:
+        name: "Webmail"
+    project_category_currency:
+        name: "Money"
 
 App\Entity\CategoryTranslation:
     project_category_decoration_translation_en:
@@ -39,6 +51,38 @@ App\Entity\CategoryTranslation:
         locale: "@language_en"
     project_category_decoration_translation_fr:
         name: "Décoration"
+        category: "@project_category_decoration"
+        locale: "@language_fr"
+    project_category_blog_translation_en:
+        name: "Blog"
+        category: "@project_category_decoration"
+        locale: "@language_en"
+    project_category_blog_translation_fr:
+        name: "Blog"
+        category: "@project_category_decoration"
+        locale: "@language_fr"
+    project_category_iot_translation_en:
+        name: "IoT"
+        category: "@project_category_decoration"
+        locale: "@language_en"
+    project_category_iot_translation_fr:
+        name: "IoT"
+        category: "@project_category_decoration"
+        locale: "@language_fr"
+    project_category_agency_translation_en:
+        name: "Agency"
+        category: "@project_category_decoration"
+        locale: "@language_en"
+    project_category_agency_translation_fr:
+        name: "Agence"
+        category: "@project_category_decoration"
+        locale: "@language_fr"
+    project_category_webmail_translation_en:
+        name: "Webmail"
+        category: "@project_category_decoration"
+        locale: "@language_en"
+    project_category_webmail_translation_fr:
+        name: "Client web mail"
         category: "@project_category_decoration"
         locale: "@language_fr"
     project_category_wine_translation_en:
@@ -160,5 +204,13 @@ App\Entity\CategoryTranslation:
     project_category_investment_translation_fr:
         name: "Investissement"
         category: "@project_category_investment"
+        locale: "@language_fr"
+    project_category_currency_translation_en:
+        name: "Devise"
+        category: "@project_category_currency"
+        locale: "@language_en"
+    project_category_currency_translation_fr:
+        name: "Money"
+        category: "@project_category_currency"
         locale: "@language_fr"
 

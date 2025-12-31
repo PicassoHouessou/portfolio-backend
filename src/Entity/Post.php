@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     )]
 #[UniqueEntity(fields: ["slug"])]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'title', 'subtitle', 'externalUrl', 'createdAt', 'updatedAt'])]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'subtitle' => 'partial', 'externalUrl' => 'partial', 'createdAt' => 'partial', 'type' => 'exact', 'author' => 'exact', 'type' => 'exact', 'type.name' => 'exact'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'title' => 'partial', 'subtitle' => 'partial', 'externalUrl' => 'partial', 'createdAt' => 'partial', 'author' => 'exact', 'type' => 'exact', 'type.name' => 'exact'])]
 #[ApiFilter(BooleanFilter::class, properties: ['isEnabled'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
 #[ORM\Entity(repositoryClass: PostRepository::class)]
@@ -81,6 +81,10 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(["post:read", "post:write"])]
     private ?User $author = null;
+
+    #[ORM\Column(type: "boolean")]
+    #[Groups(["post:read", "post:write"])]
+    private bool $isStandalone = false; // Default to false (Iframe)
     #[ORM\Column(type: "string", nullable: true)]
     #[Groups(["post:read", "post:write"])]
     private ?string $externalUrl = null;
@@ -302,6 +306,18 @@ class Post
     public function setExternalUrl(?string $externalUrl): static
     {
         $this->externalUrl = $externalUrl;
+        return $this;
+    }
+
+
+    public function getIsStandalone(): bool
+    {
+        return $this->isStandalone;
+    }
+
+    public function setIsStandalone(bool $isStandalone): static
+    {
+        $this->isStandalone = $isStandalone;
         return $this;
     }
 }

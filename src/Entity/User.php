@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,7 +45,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'email', 'username', 'firstName', 'lastName', 'roles', 'createdAt', 'updatedAt'])]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['id' => 'exact', 'firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial', 'username' => 'partial', 'roles' => 'partial', 'translations.locale.code' => 'exact'])]
 #[ApiFilter(filterClass: DateFilter::class, properties: ['createdAt', 'updatedAt'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface,JWTUserInterface
 {
 
     #[ORM\Id]
@@ -84,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Gedmo\Timestampable(on: "update")]
     #[ORM\Column(type: "datetime", nullable: true)]
     #[Groups(["user:read"])]
-    private ?\DateTimeInterface $updatedAt;
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(["user:read", "user:write"])]
@@ -232,7 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * [see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -538,5 +539,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return (string)$this->getId();
+    }
+
+    public static function createFromPayload($id, array $payload): JWTUserInterface
+    {
+        $user = new self;
+        $user->setId($id);
+        $user->setEmail($payload['username'] ?? '');
+        $user->setRoles($payload['roles']);
+
+        return $user;
     }
 }

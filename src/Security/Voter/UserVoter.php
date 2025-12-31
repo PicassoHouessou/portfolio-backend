@@ -13,7 +13,7 @@ class UserVoter extends Voter
     public const EDIT = 'EDIT';
     public const VIEW = 'VIEW';
 
-    public function __construct(private Security $security)
+    public function __construct(private readonly Security $security)
     {
 
     }

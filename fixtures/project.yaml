@@ -31,21 +31,93 @@ App\Entity\MediaObject:
         file: <media(stephie-piano-piano.jpg)>
     media_project_sylvielitaudon:
         file: <media(sylvielitaudon.jpg)>
+    media_project_pics_world:
+        file: <media(pics-world.jpg)>
+    media_project_bloggux:
+        file: <media(bloggux.jpg)>
+    media_project_alinkka:
+        file: <media(alinkka.jpg)>
+    media_project_senegal_invest:
+        file: <media(senegal-invest.jpg)>
+    media_project_iot:
+        file: <media(iot.jpg)>
+    media_project_gwebmail:
+        file: <media(gwebmail.jpg)>
+    media_project_exchange:
+        file: <media(exchange.jpg)>
 App\Entity\Post:
+    project_pics_world:
+        external_url: "https://pics-world.com"
+        categories: [ '@project_category_design' ]
+        is_enabled: true
+        is_standalone: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_iot:
+        external_url: "https://iot.picassohouessou.com"
+        categories: [ '@project_category_iot' ]
+        is_enabled: true
+        is_standalone: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_senegal_invest:
+        external_url: "https://senegalinvest.net"
+        categories: [ '@project_category_real_estate' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_bloggux:
+        external_url: "https://bloggux.com"
+        categories: [ '@project_category_blog' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_alinkka:
+        external_url: "https://alinkka.com"
+        categories: [ '@project_category_agency' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_gwebmail:
+        external_url: "https://gmail.picassohouessou.com"
+        categories: [ '@project_category_webmail' ]
+        is_enabled: true
+        is_standalone: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_lokaton:
+        external_url: "https://gmail.picassohouessou.com"
+        categories: [ '@project_category_agency' ]
+        is_enabled: false
+        type: "@post_project"
+        author: "@user_picasso"
+    project_exchange:
+        external_url: "https://exchange-symfony.picassohouessou.com"
+        categories: [ '@project_category_currency' ]
+        is_enabled: true
+        type: "@post_project"
+        author: "@user_picasso"
+    project_vhdesign:
+        external_url: "http://vhdesign.picassohouessou.com"
+        categories: [ '@project_category_currency' ]
+        is_enabled: false
+        type: "@post_project"
+        author: "@user_picasso"
+
     project_alexas_systemes:
         external_url: "https://alexassystemes.wimtec.solutions"
         categories: [ '@project_category_building' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_tableau_peinture:
-        external_url: "https://tableaupeinturesaratamjidi.wimtec.solutions/"
+        external_url: "https://tableaupeinturesaratamjidi.wimtec.solutions"
         categories: [ '@project_category_artist' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_anne_marie_fornet:
-        external_url: "https://annefornet-immobilier.wimtec.fun/"
+        external_url: "https://annefornet-immobilier.wimtec.fun"
         categories: [ '@project_category_real_estate' ]
         is_enabled: false
         type: "@post_project"
@@ -59,7 +131,7 @@ App\Entity\Post:
     project_auto_ecole_la_destrousse_conduite:
         external_url: "https://autoecoleladestrousse.wimtec.solutions"
         categories: [ '@project_category_driving_school' ]
-        is_enabled: true
+        is_enabled: false
         author: "@user_picasso"
     project_auto_prestige_91:
         external_url: "https://autosprestige91.wimtec.solutions/"
@@ -75,7 +147,7 @@ App\Entity\Post:
     project_csh_coworking:
         external_url: "https://cshcoworking.wimtec.solutions/"
         categories: [ '@project_category_coworking' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_ecole_de_la_respiration:
@@ -87,19 +159,19 @@ App\Entity\Post:
     project_la_jardinerie_champs_fleurs:
         external_url: "https://jardineriechampsfleurs.wimtec.solutions/"
         categories: [ '@project_category_garden' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_patines_et_jupons:
         external_url: "https://patinesetjupons.wimtec.solutions/"
         categories: [ '@project_category_decoration' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_psc_formation:
         external_url: "https://pscformation.wimtec.solutions/"
         categories: [ '@project_category_training' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_stephie_piano_piano:
@@ -111,36 +183,134 @@ App\Entity\Post:
     project_sylvielitaudon:
         external_url: "https://sylvielitaudon.wimtec.fun/"
         categories: [ '@project_category_dance_school' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_tourisme_arc:
         external_url: "https://tourisme-arc.wimtec.solutions/"
         categories: [ '@project_category_tourism' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
     project_vignoble_de_la_roseraie:
         external_url: "https://vignobledelaroseraie.wimtec.solutions/"
         categories: [ '@project_category_vineyard' ]
-        is_enabled: true
+        is_enabled: false
         type: "@post_project"
         author: "@user_picasso"
 App\Entity\PostContent:
+    project_content_pics_world_en:
+        locale: '@language_en'
+        post: '@project_pics_world'
+        image: "@media_project_pics_world"
+        external_url: "https://www.pics-world.com"
+        title: "Pics World"
+        is_enabled: true
+    project_content_pics_world_fr:
+        locale: '@language_fr'
+        post: '@project_pics_world'
+        image: "@media_project_pics_world"
+        external_url: "https://www.pics-world.com/"
+        title: "Pics World"
+        is_enabled: true
+    project_content_senegal_invest_en:
+        locale: '@language_en'
+        post: '@project_alexas_systemes'
+        image: "@media_project_senegal_invest"
+        external_url: "https://senegalinvest.net"
+        title: "Sénégal Invest"
+        is_enabled: true
+    project_content_senegal_invest_fr:
+        locale: '@language_fr'
+        post: '@project_senegal_invest'
+        image: "@media_project_senegal_invest"
+        external_url: "https://senegalinvest.net"
+        title: "Sénégal Invest"
+        is_enabled: true
+    project_content_bloggux_en:
+        locale: '@language_en'
+        post: '@project_bloggux'
+        image: "@media_project_bloggux"
+        external_url: "https://bloggux.com"
+        title: "Bloggux"
+        is_enabled: true
+    project_content_bloggux_fr:
+        locale: '@language_fr'
+        post: '@project_bloggux'
+        image: "@media_project_bloggux"
+        external_url: "https://bloggux.com"
+        title: "Bloggux"
+        is_enabled: true
+    project_content_alinkka_en:
+        locale: '@language_en'
+        post: '@project_alinkka'
+        image: "@media_project_alinkka"
+        external_url: "https://alinkka.com"
+        title: "Alinkka"
+        is_enabled: true
+    project_content_alinkka_fr:
+        locale: '@language_fr'
+        post: '@project_alinkka'
+        image: "@media_project_alinkka"
+        external_url: "https://alinkka.com"
+        title: "Alinkka"
+        is_enabled: true
+    project_content_iot_en:
+        locale: '@language_en'
+        post: '@project_iot'
+        image: "@media_project_iot"
+        external_url: "https://iot.picassohouessou.com"
+        title: "IoT"
+        is_enabled: true
+    project_content_iot_fr:
+        locale: '@language_fr'
+        post: '@project_iot'
+        image: "@media_project_iot"
+        external_url: "https://iot.picassohouessou.com"
+        title: "IoT"
+        is_enabled: true
+    project_content_gwebmail_en:
+        locale: '@language_en'
+        post: '@project_gwebmail'
+        image: "@media_project_gwebmail"
+        external_url: "https://gmail.picassohouessou.com"
+        title: "GWebmail"
+        is_enabled: true
+    project_content_gwebmail_fr:
+        locale: '@language_fr'
+        post: '@project_gwebmail'
+        image: "@media_project_gwebmail"
+        external_url: "https://gmail.picassohouessou.com"
+        title: "GWebmail"
+        is_enabled: true
+    project_content_exchange_en:
+        locale: '@language_en'
+        post: '@project_exchange'
+        image: "@media_project_exchange"
+        external_url: "https://exchange-symfony.picassohouessou.com/"
+        title: "Currency converter"
+        is_enabled: true
+    project_content_exchange_fr:
+        locale: '@language_fr'
+        post: '@project_exchange'
+        image: "@media_project_exchange"
+        external_url: "https://exchange-symfony.picassohouessou.com/"
+        title: "Convertisseur de devise"
+        is_enabled: true
     project_content_alexas_systemes_en:
         locale: '@language_en'
         post: '@project_alexas_systemes'
         image: "@media_project_alexas_systemes"
         external_url: "https://alexassystemes.wimtec.solutions"
         title: "Alexas Système"
-        is_enabled: true
+        is_enabled: false
     project_content_alexas_systemes_fr:
         locale: '@language_fr'
         post: '@project_alexas_systemes'
         image: "@media_project_alexas_systemes"
         external_url: "https://alexassystemes.wimtec.solutions"
         title: "Alexas Système"
-        is_enabled: true
+        is_enabled: false
     project_content_tableau_peinture_en:
         locale: '@language_en'
         post: '@project_tableau_peinture'
@@ -167,12 +337,12 @@ App\Entity\PostContent:
         external_url: "https://autoecoleladestrousse.wimtec.solutions"
         image: "@media_project_auto_ecole_la_destrousse_conduite"
         title: "Destrouss' Conduite"
-        is_enabled: true
+        is_enabled: false
     project_content_auto_prestige_91_en:
         locale: '@language_en'
         post: '@project_auto_prestige_91'
         external_url: "https://autosprestige91.wimtec.solutions/"
-        is_enabled: true
+        is_enabled: false
         image: "@media_project_auto_prestige_91"
         title: "Auto Prestige"
     project_content_boldnect_en:

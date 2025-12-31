@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ApiResource(
+    shortName:"contact_use",
     operations: [
         new Get(security: "is_granted('ROLE_ADMIN')"),
         new Delete(security: "is_granted('ROLE_ADMIN')"),
@@ -36,7 +37,8 @@ class ContactUs
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;
+    #[Groups(["contact_us:read", "contact_us:write"])]
+    private ?int $id =null;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["contact_us:read", "contact_us:write"])]
@@ -44,13 +46,13 @@ class ContactUs
     #[Assert\Length(
         max: 200
     )]
-    private $fullName;
+    private string $fullName;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["contact_us:read", "contact_us:write"])]
     #[Assert\NotBlank()]
     #[Assert\Email()]
-    private $email;
+    private string $email;
 
     #[ORM\Column(type: "string", length: 200)]
     #[Groups(["contact_us:read", "contact_us:write"])]
@@ -58,7 +60,7 @@ class ContactUs
     #[Assert\Length(
         max: 200
     )]
-    private $subject;
+    private string $subject;
 
     #[ORM\Column(type: "text")]
     #[Groups(["contact_us:read", "contact_us:write"])]
@@ -67,12 +69,12 @@ class ContactUs
         min: 5,
         max: 5000
     )]
-    private $message;
+    private string $message;
 
     #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column(type: "datetime")]
     #[Groups(["contact_us:read"])]
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt =null;
 
 
     /*

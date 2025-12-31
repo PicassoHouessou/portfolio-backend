@@ -29,7 +29,7 @@ class LocaleListener implements EventSubscriberInterface
         $this->defaultLocale = $localeRepository->getDefaultLocale();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             KernelEvents::REQUEST => array(array('onKernelRequest', 200)),
@@ -37,7 +37,7 @@ class LocaleListener implements EventSubscriberInterface
         );
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         // Persist DefaultLocale in translation table
         //$this->translatableListener->setPersistDefaultLocaleTranslation(true);

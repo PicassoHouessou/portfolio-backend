@@ -3,17 +3,47 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model;
 use App\Repository\CVRepository;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: CVRepository::class)]
 #[ApiResource(
-    normalizationContext: ["groups" => ["cv:read"]],
-    denormalizationContext: ["groups" => ["cv:write"]],
+    types: ['https://schema.org/CV'],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(
+            inputFormats: ['multipart' => ['multipart/form-data']],
+            openapi: new Model\Operation(
+                requestBody: new Model\RequestBody(
+                    content: new \ArrayObject([
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'file' => [
+                                        'type' => 'string',
+                                        'format' => 'binary'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ])
+                )
+            ),
+            validationContext: ['groups' => ['Default', 'cv:write']],
+        )
+    ],
+    normalizationContext: ['groups' => ['cv:read']]
 )]
 class CV
 {
@@ -29,7 +59,13 @@ class CV
     }
 
     #[Vich\UploadableField(mapping: 'cv', fileNameProperty: 'name', size: 'size', mimeType: "mimeType", originalName: "originalName")]
-
+    #[Assert\NotNull(groups: ['cv:write'])]
+    #[Assert\File(
+        maxSize: '5012k',
+        extensions: ['pdf'],
+        extensionsMessage: 'Please upload a valid PDF',
+        groups: ['cv:write']
+    )]
     private ?File $file = null;
 
     #[ORM\Column(nullable: true)]

@@ -21,9 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [new Get(), new GetCollection(), new Post(security: "is_granted('ROLE_ADMIN')")],
     normalizationContext: ['groups' => ['language:read']],
     denormalizationContext: ['groups' => ['language:write']],
-    extraProperties: [
-        'standard_put' => false,
-    ])]
+  )]
 #[UniqueEntity('code')]
 #[ORM\Entity(repositoryClass: LocaleRepository::class)]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id', 'code', 'description', 'startAt', 'endAt'])]

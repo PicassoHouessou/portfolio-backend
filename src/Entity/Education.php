@@ -22,6 +22,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EducationRepository::class)]
 #[ApiResource(
@@ -84,6 +85,20 @@ class Education implements Translatable
     #[ORM\OneToMany(mappedBy: 'education', targetEntity: EducationTranslation::class)]
     #[Groups(["education:read"])]
     private $translations;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["education:read", "education:write"])]
+    #[Assert\Length(
+        max: 500
+    )]
+    private ?string $description = null;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(["education:read", "education:write"])]
+    #[Assert\Length(
+        max: 200
+    )]
+    private ?string $location = null;
 
     public function __construct()
     {
