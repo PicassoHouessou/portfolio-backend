@@ -24,7 +24,7 @@ App\Entity\Experience:
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_wimtec:
-        company: "WIMTEC"
+        company: "Wimtec"
         start_at: <(new \DateTime('2020-12-01'))>
         end_at: <(new \DateTime('2021-12-31'))>
         description: "Redesign of more than 300 websites. Create e-learning platforms (social networks, WordPress). Organize and distribute tasks"
@@ -34,6 +34,7 @@ App\Entity\Experience:
     experience_kritek:
         company: "Kritek"
         start_at: <(new \DateTime('2022-04-01'))>
+        end_at: <(new \DateTime('2024-06-30'))>
         description: "Develop modules (packages) used in several projects. Development of a cab review application with React, Symfony and API Platform. Creation of a CMS with React, Symfony and API Platform. Supervise the tasks assigned to each developer"
         location_type: '@location_type_remote'
         user: '@user_picasso'
@@ -59,29 +60,29 @@ App\Entity\ExperienceTranslation:
     experience_hgtech_translation_en:
         experience: '@experience_hgtech'
         locale: '@language_en'
-        title: "Internship"
-        description: "Maintenance and technical assistance. Administration under Windows Server. Website development"
+        title: "IT Support and Web Development"
+        description: "Provided maintenance and technical assistance, including administration under Windows Server, resulting in a 25% improvement in customer satisfaction. Executed website development projects, showcasing proficiency in crafting dynamic and user-friendly platforms tailored to clients' needs."
         location: "Cotonou, Benin"
     experience_hgtech_translation_fr:
         experience: '@experience_hgtech'
         locale: '@language_fr'
-        title: "Stage"
-        description: "Maintenance et assistance technique. Administration sous Windows Server. Développement de site Web en PHP et avec WordPress"
+        title: "Assistant informatique et développeur web"
+        description: "Maintenance et assistance technique fournies, y compris l'administration sous Windows Server, entraînant une amélioration de 25 % de la satisfaction client. Exécution de projets de développement de sites web, démontrant une compétence dans la création de plateformes dynamiques et conviviales adaptées aux besoins des clients."
         location: "Cotonou, Bénin"
         location_type: '@location_type_on_site'
     experience_jscom_translation_en:
         experience: '@experience_jscom'
         locale: '@language_en'
-        title: "Internship"
-        description: "Deployment of Pozépa (mail management application) and training workshop on its use. Drafting of final thesis for bachelor's degree completion"
+        title: "System and Network Administrator"
+        description: "Deployment and training on Pozépa, a mail and document management integrated electronic system, at the National Water Company of Benin (SONEB). Pozépa is an integrated electronic mail and document management system. Creation of a local network simulation using GNS3, installation and configuration of an email server, and development of a control panel for managing the servers used."
         location: "Cotonou, Benin"
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_jscom_translation_fr:
         experience: '@experience_jscom'
         locale: '@language_fr'
-        title: "Stage"
-        description: "Déploiement de Pozépa (application de gestion de courriers) et atelier de formation sur son utilisation. Préparation et rédaction de mémoire de fin d’études pour l’obtention de la licence"
+        title: "Administrateur Système et Réseaux"
+        description: "Déploiement et formation sur Pozépa, application de gestion des courriers à la Société Nationale des Eaux du Bénin (SONEB). Pozépa est un système informatique de gestion électronique intégrée du courrier et des documents. Création d'une simulation de réseau local avec GNS3, installation et configuration d'un serveur de messagerie électronique, ainsi que le développement d'un panneau de configuration pour la gestion des serveurs utilisés."
         location: "Cotonou, Bénin"
         location_type: '@location_type_on_site'
         user: '@user_picasso'
@@ -89,14 +90,14 @@ App\Entity\ExperienceTranslation:
         experience: '@experience_club_informatique'
         locale: '@language_en'
         title: "Former"
-        description: "Teach general computing, office automation (Word, Excel, PowerPoint) and web design"
+        description: "Teaching more than 100 students, including high school students and professionals, in general computer science, office automation (Microsoft Word, Excel, PowerPoint), and introductory web design. Objective: to inspire them to pursue careers in computer science while improving their productivity."
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_club_informatique_translation_fr:
         experience: '@experience_club_informatique'
         locale: '@language_fr'
         title: "Formateur"
-        description: "Teach general computing, office automation (Word, Excel, PowerPoint) and web design"
+        description: "Instruction de plus de 100 étudiants, y compris des lycéens et des professionnels,en informatique générale, en bureautique (Microsoft Word, Excel, PowerPoint) et initiation au web design. Objectif : les inspirer à poursuivre des carrières en informatique tout en améliorant leur productivité."
         location_type: '@location_type_on_site'
         user: '@user_picasso'
     experience_wimtec_translation_en:
@@ -119,7 +120,7 @@ App\Entity\ExperienceTranslation:
         experience: '@experience_kritek'
         locale: '@language_en'
         title: "Full Stack Web Developer"
-        description: "Develop modules (packages) used in several projects. Development of a cab review application with React, Symfony and API Platform. Creation of a CMS with React, Symfony and API Platform. Supervise the tasks assigned to each developer"
+        description: "Development of modular packages (dashboard, payment, invoicing, logging, CMS, configuration) with Git submodules, reducing development time by 50%. Database analysis and optimization. Cleaning, deduplication, and reliability improvement of data using advanced SQL queries. Data analysis and visualization, production of decision support reports. Support for management in strategic decisions. Management of a team of 10 developers, improving code quality by 20% through structured supervision and targeted feedback."
         location: "Cotonou, Benin"
         location_type: '@location_type_remote'
         user: '@user_picasso'
@@ -127,7 +128,7 @@ App\Entity\ExperienceTranslation:
         experience: '@experience_kritek'
         locale: '@language_fr'
         title: "Développeur Web Full Stack"
-        description: "Développer des modules (packages) utilisés dans plusieurs projets. Réalisation d’une application de critique des taxis avec React, Symfony et API Platform. Création d’un CMS avec React, Symfony et API Platform. Superviser les tâches affectées à chaque développeur"
+        description: "Développement de packages modulaires (Dashboard, paiement, facture, log, CMS, configuration) avec les sous-modules Git, réduisant le temps de développement de 50 %. Analyse et optimisation de bases de données. Nettoyage, déduplication et fiabilisation des données grâce à des requêtes SQL avancées. Analyse et visualisation de données, production de rapports d'aide à la décision. Accompagnement de la direction dans les choix stratégiques. Gestion d'une équipe de 10 développeurs, améliorant la qualité du code de 20 % grâce à une supervision structurée et des retours ciblés"
         location: "République Tchèque"
         location_type: '@location_type_remote'
         user: '@user_picasso'
@@ -135,7 +136,7 @@ App\Entity\ExperienceTranslation:
         experience: '@experience_fasfox'
         locale: '@language_en'
         title: "Frontend Web Developer"
-        description: "Concrete Dispatch: Integration of new features for the optimization of concrete and material management across all construction sites. Staff Dispatch: Development and addition of modules for advanced personnel management on construction sites"
+        description: "Integrated new features into the concrete management application to optimize concrete and material management across multiple job sites. Added and implemented features in the Staff Dispatch application (job site personnel management), resulting in increased customer satisfaction and a 20% increase in application installations at other job sites"
         location: "Cotonou, Benin"
         location_type: '@location_type_remote'
         user: '@user_picasso'
@@ -143,7 +144,7 @@ App\Entity\ExperienceTranslation:
         experience: '@experience_fasfox'
         locale: '@language_fr'
         title: "Développeur Frontend"
-        description: "Concrete Dispatch : Intégration de nouvelles fonctionnalités pour l'optimisation de la gestion de béton et matériaux sur l'ensemble des chantiers. Staff Dispatch : Développement et ajout de modules pour une gestion avancée du personnel sur les chantiers"
+        description: "Intégration de nouvelles fonctionnalités à l'application de gestion du béton afin d'optimiser la gestion du béton et des matériaux sur plusieurs chantiers. Ajout et implémentation des fonctionnalités dans l'application Staff Dispatch(gestion du personnel sur les chantiers), ce qui a entraîné une satisfaction client accrue et une augmentation de 20 % des installations de l'application sur d'autres chantiers"
         location: "Cotonou, Bénin"
         location_type: '@location_type_remote'
         user: '@user_picasso'

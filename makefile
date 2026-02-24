@@ -431,20 +431,16 @@ pem: ## Generate JWT tokens.
 .PHONY: pem
 
 data: ## Generate fixtures for the project.
-	$(MAKE) sf-dd
-	$(MAKE) sf-dc
-	$(MAKE) sf-su
-	$(MAKE) sf-fixtures
-	$(MAKE) sf-hautelook-fixtures
-.PHONY: data
-
-php-data: ## Generate fixtures for the project.
 	$(MAKE) php-dd
 	$(MAKE) php-dc
 	$(MAKE) php-su
 	$(MAKE) php-fixtures
 	$(MAKE) php-hautelook-fixtures
-.PHONY: php-data
+.PHONY: data
+
+cache: # Clear cache
+	$(MAKE) php-cc
+.PHONY: cache
 
 checkout: ## Pull all modules for the specified branch. Eg: make checkout dev_VER_1.1
 	$(GIT) pull
